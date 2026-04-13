@@ -8,42 +8,71 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#05060f;--s1:#0c0d1a;--s2:#131425;--s3:#1a1c30;--s4:#222440;
-  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.13);
-  --text:#f0f1ff;--text2:#8890b8;--text3:#444868;
-  --curr:#ff4d2e;--prev:#00e5a0;--nxt:#a78bfa;--done:#22d3ee;--gold:#fbbf24;
-  --gc:rgba(255,77,46,0.25);--gp:rgba(0,229,160,0.22);--gn:rgba(167,139,250,0.22);--gd:rgba(34,211,238,0.2);
-  --font:'Space Grotesk',sans-serif;--mono:'JetBrains Mono',monospace;
+  --bg:#05060f;
+  --s1:#0c0d1a;
+  --s2:#131425;
+  --s3:#1a1c30;
+  --s4:#222440;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.13);
+  --text:#f0f1ff;
+  --text2:#8890b8;
+  --text3:#444868;
+  --curr:#ff4d2e;
+  --prev:#00e5a0;
+  --nxt:#a78bfa;
+  --done:#22d3ee;
+  --gold:#fbbf24;
+  --gc:rgba(255,77,46,0.25);
+  --gp:rgba(0,229,160,0.22);
+  --gn:rgba(167,139,250,0.22);
+  --gd:rgba(34,211,238,0.2);
+  --font:'Space Grotesk',sans-serif;
+  --mono:'JetBrains Mono',monospace;
 }
 html,body{height:100%;overflow:hidden;font-family:var(--font)}
 body{background:var(--bg);color:var(--text)}
+
+/* ── BG ── */
 .bg-fx{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(90px);animation:orb-float 12s ease-in-out infinite}
 .orb1{width:600px;height:600px;top:-250px;left:-200px;background:radial-gradient(circle,rgba(255,77,46,0.1),transparent 70%);animation-delay:0s}
 .orb2{width:500px;height:500px;bottom:-200px;right:-150px;background:radial-gradient(circle,rgba(0,229,160,0.08),transparent 70%);animation-delay:4s}
 .orb3{width:350px;height:350px;top:40%;left:45%;background:radial-gradient(circle,rgba(167,139,250,0.07),transparent 70%);animation-delay:7s}
 @keyframes orb-float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-40px) scale(1.05)}66%{transform:translate(-20px,20px) scale(0.95)}}
+
+/* Stars */
 .stars{position:absolute;inset:0}
 .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite;animation-delay:var(--delay,0s);opacity:0}
 @keyframes twinkle{0%,100%{opacity:0}50%{opacity:var(--op,0.4)}}
+
+/* ── LAYOUT ── */
 .app{position:relative;z-index:1;display:flex;height:100vh;overflow:hidden}
+
+/* ── SIDEBAR ── */
 .sidebar{width:220px;flex-shrink:0;background:rgba(12,13,26,0.95);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:20px 0}
 .logo{padding:0 20px 20px;border-bottom:1px solid var(--border);margin-bottom:16px}
 .logo-icon{font-size:22px;margin-bottom:6px}
 .logo-text{font-size:13px;font-weight:800;letter-spacing:.05em}
 .logo-sub{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:3px}
+
 .nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;cursor:pointer;transition:all .2s;border-left:2px solid transparent;margin-bottom:2px;font-size:13px;font-weight:600;color:var(--text2)}
 .nav-item:hover{background:rgba(255,255,255,0.03);color:var(--text)}
 .nav-item.active{background:rgba(255,77,46,0.08);color:var(--curr);border-left-color:var(--curr)}
 .nav-item .nav-ico{font-size:16px;width:24px;text-align:center}
 .nav-item .nav-badge{margin-left:auto;font-size:9px;font-family:var(--mono);background:var(--s3);padding:2px 6px;border-radius:10px;color:var(--text3)}
 .nav-item.active .nav-badge{background:rgba(255,77,46,0.2);color:var(--curr)}
+
 .sidebar-bottom{margin-top:auto;padding:16px 20px;border-top:1px solid var(--border)}
 .progress-label{font-size:10px;color:var(--text3);font-family:var(--mono);margin-bottom:8px;letter-spacing:.1em}
 .progress-bar-wrap{background:var(--s3);border-radius:4px;height:6px;overflow:hidden;margin-bottom:6px}
 .progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--curr),var(--nxt));border-radius:4px;transition:width .5s;width:20%}
 .progress-pct{font-size:11px;color:var(--text2);font-family:var(--mono)}
+
+/* ── MAIN CONTENT ── */
 .main{flex:1;overflow:hidden;display:flex;flex-direction:column}
+
+/* ── TOP BAR ── */
 .topbar{height:52px;display:flex;align-items:center;padding:0 28px;border-bottom:1px solid var(--border);flex-shrink:0;gap:16px;background:rgba(5,6,15,0.8);backdrop-filter:blur(10px)}
 .page-title-bar{font-size:15px;font-weight:800;flex:1}
 .page-title-bar span{color:var(--curr)}
@@ -52,14 +81,17 @@ body{background:var(--bg);color:var(--text)}
 .tbtn:hover{background:var(--s3);color:var(--text)}
 .tbtn.primary{background:var(--curr);border-color:var(--curr);color:#fff}
 .tbtn.primary:hover{opacity:.9}
+
+/* ── PAGE CONTENT ── */
 .page-content{flex:1;overflow-y:auto;padding:0}
 .page-content::-webkit-scrollbar{width:5px}
 .page-content::-webkit-scrollbar-track{background:transparent}
 .page-content::-webkit-scrollbar-thumb{background:var(--s4);border-radius:3px}
+
 .pane{display:none;padding:28px 32px 60px}
-.pane.active{display:block;animation:pageIn .35s ease}
-@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-/* INTRO */
+.pane.active{display:block}
+
+/* ── INTRO PAGE ── */
 .hero-section{text-align:center;padding:40px 20px 50px;max-width:700px;margin:0 auto}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--curr);text-transform:uppercase;margin-bottom:20px;padding:5px 14px;border:1px solid rgba(255,77,46,0.3);border-radius:20px;background:rgba(255,77,46,0.05)}
 .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--curr);animation:sdot 1.5s ease-in-out infinite}
@@ -73,12 +105,17 @@ body{background:var(--bg);color:var(--text)}
 .hbtn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(255,77,46,0.5)}
 .hbtn-sec{background:var(--s2);color:var(--text);border:1px solid var(--border2)}
 .hbtn-sec:hover{border-color:var(--curr);color:var(--curr)}
+
+/* What is section */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+@media(max-width:800px){.two-col{grid-template-columns:1fr}}
 .info-card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:22px;transition:all .25s;cursor:default}
 .info-card:hover{border-color:rgba(255,77,46,0.3);transform:translateY(-3px)}
 .ic-hd{font-size:26px;margin-bottom:10px}
 .ic-t{font-size:14px;font-weight:700;margin-bottom:7px}
 .ic-b{font-size:13px;color:var(--text2);line-height:1.7}
+
+/* Static list vis */
 .static-vis{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:24px;margin:20px 0}
 .vis-label{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.15em;text-transform:uppercase;margin-bottom:16px}
 .slist{display:flex;align-items:center;overflow-x:auto;padding-bottom:6px;gap:0}
@@ -93,25 +130,14 @@ body{background:var(--bg);color:var(--text)}
 .c2{border-color:rgba(167,139,250,.5)}.c2 .sval{background:rgba(167,139,250,.08);color:#a78bfa}.c2 .sptr{border-color:rgba(167,139,250,.2);color:rgba(167,139,250,.6)}
 .c3{border-color:rgba(34,211,238,.5)}.c3 .sval{background:rgba(34,211,238,.08);color:#22d3ee}.c3 .sptr{border-color:rgba(34,211,238,.2);color:rgba(34,211,238,.6)}
 .c4{border-color:rgba(251,191,36,.5)}.c4 .sval{background:rgba(251,191,36,.08);color:#fbbf24}.c4 .sptr{border-color:rgba(251,191,36,.2);color:rgba(251,191,36,.6)}
-/* ALGO PAGE */
-.sec-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--curr);text-transform:uppercase;margin-bottom:10px}
-.sec-title{font-size:clamp(22px,3vw,34px);font-weight:800;margin-bottom:10px}
-.sec-sub{font-size:14px;color:var(--text2);line-height:1.7;max-width:580px;margin-bottom:28px}
-.algo-steps-list{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
-.algo-step{display:flex;gap:16px;align-items:flex-start;background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:20px;transition:all .25s;cursor:default}
-.algo-step:hover{border-color:rgba(255,255,255,0.12);transform:translateX(4px)}
-.step-num-badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--mono);font-size:13px;flex-shrink:0}
-.sn-o{background:rgba(255,77,46,.12);color:var(--curr);border:1px solid rgba(255,77,46,.25)}
-.sn-g{background:rgba(0,229,160,.12);color:var(--prev);border:1px solid rgba(0,229,160,.25)}
-.sn-p{background:rgba(167,139,250,.12);color:var(--nxt);border:1px solid rgba(167,139,250,.25)}
-.sn-b{background:rgba(34,211,238,.12);color:var(--done);border:1px solid rgba(34,211,238,.25)}
-.step-body h4{font-size:14px;font-weight:700;margin-bottom:6px}
-.step-body p{font-size:13px;color:var(--text2);line-height:1.7}
-.code-snip{margin-top:9px;display:inline-block;font-family:var(--mono);font-size:11px;padding:4px 11px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text2)}
-.code-block{background:#070810;border:1px solid var(--border);border-radius:14px;padding:24px;font-family:var(--mono);font-size:13px;line-height:2;overflow-x:auto;position:relative}
-.cb-lang{position:absolute;top:12px;right:16px;font-size:9px;font-family:var(--mono);color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
-.kw{color:#a78bfa}.fn{color:#22d3ee}.va{color:#f0f1ff}.cm{color:#33385a;font-style:italic}.li{color:#00e5a0}.op{color:#ff4d2e}
-/* VISUALIZER */
+
+/* ── VISUALIZER PAGE ── */
+#viz-pane{padding:24px 28px 60px}
+.viz-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px}
+.viz-heading{font-size:20px;font-weight:800}
+.viz-heading span{color:var(--curr)}
+
+/* Input section */
 .input-section{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:20px}
 .inp-title{font-size:11px;font-family:var(--mono);color:var(--text3);letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px}
 .inp-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
@@ -119,7 +145,10 @@ body{background:var(--bg);color:var(--text)}
 .vi-input:focus{border-color:var(--curr);box-shadow:0 0 0 3px rgba(255,77,46,0.12)}
 .vi-build{height:42px;padding:0 20px;border-radius:10px;background:linear-gradient(135deg,var(--curr),#e03520);border:none;color:#fff;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
 .vi-build:hover{opacity:.9;transform:scale(1.02)}
+.vi-build:active{transform:scale(.98)}
 .inp-hint{font-size:11px;color:var(--text3);margin-top:8px;font-family:var(--mono)}
+
+/* Controls */
 .controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
 .ctrl-btn{height:38px;padding:0 16px;border-radius:10px;border:1px solid var(--border2);background:var(--s2);color:var(--text);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .ctrl-btn:hover:not(:disabled){background:var(--s3);border-color:var(--border2)}
@@ -132,18 +161,27 @@ body{background:var(--bg);color:var(--text)}
 .speed-wrap input[type=range]{-webkit-appearance:none;width:90px;height:3px;border-radius:2px;background:var(--s4);outline:none;cursor:pointer}
 .speed-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--curr);cursor:pointer}
 .speed-lbl{font-size:11px;color:var(--text2);font-family:var(--mono);min-width:40px}
+
+/* Progress */
 .prog-wrap{margin-bottom:22px}
 .prog-steps{display:flex;gap:2px;margin-bottom:6px}
 .prog-step-dot{flex:1;height:3px;border-radius:2px;background:var(--s4);transition:background .3s}
 .prog-step-dot.done{background:var(--prev)}
 .prog-step-dot.curr{background:var(--curr)}
 .prog-info{display:flex;justify-content:space-between;font-size:10px;font-family:var(--mono);color:var(--text3)}
+
+/* Arena - the main visualization area */
 .arena{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:20px;min-height:320px;position:relative;overflow:hidden}
-.arena::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 400px 200px at 50% 0%,rgba(255,77,46,0.04),transparent),radial-gradient(ellipse 300px 200px at 50% 100%,rgba(0,229,160,0.03),transparent);pointer-events:none}
+.arena::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(ellipse 400px 200px at 50% 0%, rgba(255,77,46,0.04),transparent),
+  radial-gradient(ellipse 300px 200px at 50% 100%, rgba(0,229,160,0.03),transparent);
+  pointer-events:none}
 .arena-section{margin-bottom:28px}
 .arena-section:last-child{margin-bottom:0}
 .arena-label{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .arena-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Node rendering */
 .ptr-labels{display:flex;overflow-x:auto;padding-bottom:4px;margin-bottom:4px}
 .ptr-label-cell{min-width:74px;display:flex;justify-content:center;flex-shrink:0}
 .ptr-spacer{width:50px;flex-shrink:0}
@@ -168,6 +206,8 @@ body{background:var(--bg);color:var(--text)}
 .nbox-ptr{padding:3px 6px 11px;text-align:center;font-size:9px;font-family:var(--mono);color:var(--text3);border-top:1px solid rgba(255,255,255,.05);letter-spacing:.04em}
 .narrow-arrow{width:50px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .n-null{width:52px;height:52px;border-radius:11px;border:1.5px dashed rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:9px;font-family:var(--mono);color:var(--text3);flex-shrink:0}
+
+/* Step Explainer Panel */
 .explainer{background:var(--s2);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:20px;transition:all .3s}
 .exp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
 .exp-step-counter{font-family:var(--mono);font-size:10px;color:var(--text3)}
@@ -175,26 +215,100 @@ body{background:var(--bg);color:var(--text)}
 .exp-msg{font-size:14px;line-height:1.75;color:var(--text2);margin-bottom:14px;transition:all .3s}
 .exp-msg strong{color:var(--text)}
 .exp-code{font-family:var(--mono);font-size:12px;padding:12px 16px;background:rgba(0,0,0,.35);border-radius:10px;border-left:3px solid var(--curr);color:var(--text2);transition:border-color .3s}
+
+/* Memory view */
 .memory-view{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
 .mem-card{background:var(--s2);border:1.5px solid var(--border);border-radius:12px;padding:14px;text-align:center;transition:all .35s}
-.mem-card.active-mem{border-color:currentColor;box-shadow:0 0 14px currentColor}
-.mem-card.mc-curr{color:var(--curr)}.mem-card.mc-prev{color:var(--prev)}.mem-card.mc-nxt{color:var(--nxt)}
+.mem-card.active-mem{border-color:currentColor;box-shadow:0 0 14px currentColor;}
+.mem-card.mc-curr{color:var(--curr)}
+.mem-card.mc-prev{color:var(--prev)}
+.mem-card.mc-nxt{color:var(--nxt)}
 .mem-label{font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;opacity:.7}
 .mem-val{font-family:var(--mono);font-size:22px;font-weight:700;min-height:32px;transition:all .3s;color:inherit}
 .mem-val.changing{animation:memChange .3s ease}
 @keyframes memChange{0%{transform:scale(1.3);opacity:.5}100%{transform:scale(1);opacity:1}}
 .mem-desc{font-size:10px;color:var(--text3);margin-top:5px;font-family:var(--mono)}
+
+/* Success banner */
 .success-banner{display:none;align-items:center;gap:12px;padding:16px 20px;background:rgba(0,229,160,.08);border:1px solid rgba(0,229,160,.25);border-radius:14px;margin-top:16px;animation:slideIn .4s ease}
 .success-banner.show{display:flex}
 @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .sb-icon{font-size:24px}
 .sb-text{flex:1;font-size:14px;font-weight:600;color:var(--prev)}
 .sb-sub{font-size:11px;color:var(--text3);margin-top:2px;font-family:var(--mono)}
+
+/* Legend */
 .legend{display:flex;gap:16px;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--border)}
 .leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
 .leg-dot{width:10px;height:10px;border-radius:3px}
-/* COMPLEXITY */
+
+/* ── ALGORITHM PAGE ── */
+.algo-steps-list{display:flex;flex-direction:column;gap:14px;margin-bottom:32px}
+.algo-step{display:flex;gap:16px;align-items:flex-start;background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:20px;transition:all .25s;cursor:default}
+.algo-step:hover{border-color:rgba(255,255,255,0.12);transform:translateX(4px)}
+.step-num-badge{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--mono);font-size:13px;flex-shrink:0}
+.sn-o{background:rgba(255,77,46,.12);color:var(--curr);border:1px solid rgba(255,77,46,.25)}
+.sn-g{background:rgba(0,229,160,.12);color:var(--prev);border:1px solid rgba(0,229,160,.25)}
+.sn-p{background:rgba(167,139,250,.12);color:var(--nxt);border:1px solid rgba(167,139,250,.25)}
+.sn-b{background:rgba(34,211,238,.12);color:var(--done);border:1px solid rgba(34,211,238,.25)}
+.step-body h4{font-size:14px;font-weight:700;margin-bottom:6px}
+.step-body p{font-size:13px;color:var(--text2);line-height:1.7}
+.code-snip{margin-top:9px;display:inline-block;font-family:var(--mono);font-size:11px;padding:4px 11px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--text2)}
+
+.code-block{background:#070810;border:1px solid var(--border);border-radius:14px;padding:24px;font-family:var(--mono);font-size:13px;line-height:2;overflow-x:auto;position:relative}
+.cb-lang{position:absolute;top:12px;right:16px;font-size:9px;font-family:var(--mono);color:var(--text3);letter-spacing:.1em;text-transform:uppercase}
+.kw{color:#a78bfa}.fn{color:#22d3ee}.va{color:#f0f1ff}.cm{color:#33385a;font-style:italic}.li{color:#00e5a0}.op{color:#ff4d2e}
+
+/* ── QUIZ PAGE ── */
+.quiz-container{max-width:680px}
+.quiz-hud{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.qhud-score{font-size:14px;font-weight:700;color:var(--gold)}
+.qhud-score span{font-family:var(--mono);font-size:20px}
+.qhud-progress{display:flex;gap:5px}
+.qhud-dot{width:32px;height:5px;border-radius:3px;background:var(--s4);transition:all .4s}
+.qhud-dot.q-done{background:var(--prev)}
+.qhud-dot.q-curr{background:var(--curr);animation:qpulse 1s ease-in-out infinite}
+@keyframes qpulse{0%,100%{opacity:1}50%{opacity:.6}}
+.qhud-dot.q-wrong{background:#ef4444}
+
+.quiz-card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:32px;transition:all .3s}
+.q-num{font-family:var(--mono);font-size:10px;color:var(--curr);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.q-text{font-size:18px;font-weight:700;line-height:1.5;margin-bottom:24px}
+.q-text code{font-family:var(--mono);font-size:15px;background:rgba(255,255,255,.07);padding:2px 8px;border-radius:5px;color:var(--nxt)}
+.q-opts{display:flex;flex-direction:column;gap:10px}
+.qopt{padding:15px 20px;background:var(--s2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;text-align:left;font-family:var(--font);color:var(--text);position:relative;overflow:hidden}
+.qopt::before{content:'';position:absolute;inset:0;background:var(--curr);opacity:0;transition:opacity .2s}
+.qopt:hover:not(:disabled)::before{opacity:.04}
+.qopt:hover:not(:disabled){border-color:rgba(255,77,46,.4);color:var(--curr)}
+.qopt.correct{border-color:var(--prev);background:rgba(0,229,160,.08);color:var(--prev)}
+.qopt.wrong{border-color:#ef4444;background:rgba(239,68,68,.08);color:#ef4444}
+.qopt:disabled{cursor:default}
+.q-feedback{margin-top:16px;padding:14px 18px;border-radius:12px;font-size:13px;line-height:1.7;display:none}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);color:var(--prev)}
+.q-feedback.bad{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#f87171}
+.q-next{margin-top:18px;padding:12px 26px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--curr),#e03520);color:#fff;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;display:none;transition:transform .2s;letter-spacing:.02em}
+.q-next:hover{transform:scale(1.04)}
+.q-next.show{display:inline-block}
+
+/* Score screen */
+.score-screen{display:none;text-align:center;padding:48px 24px;background:var(--s1);border:1px solid var(--border);border-radius:20px}
+.score-screen.show{display:block}
+.score-trophy{font-size:72px;margin-bottom:16px;animation:trophyBounce .8s cubic-bezier(.34,1.56,.64,1)}
+@keyframes trophyBounce{0%{transform:scale(0) rotate(-20deg)}100%{transform:scale(1) rotate(0)}}
+.score-num{font-size:80px;font-weight:800;font-family:var(--mono);background:linear-gradient(135deg,var(--gold),var(--curr),var(--nxt));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.score-label{font-size:15px;color:var(--text2);margin:10px 0 6px}
+.score-msg{font-size:13px;color:var(--text3);margin-bottom:28px;font-family:var(--mono)}
+.stars-row{display:flex;gap:8px;justify-content:center;margin-bottom:28px}
+.star-display{font-size:32px;transition:all .3s;filter:grayscale(1);opacity:.3}
+.star-display.lit{filter:none;opacity:1;animation:starLit .4s cubic-bezier(.34,1.56,.64,1) forwards}
+@keyframes starLit{0%{transform:scale(0)}80%{transform:scale(1.3)}100%{transform:scale(1)}}
+.restart-btn{padding:13px 30px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--curr),#e03520);color:#fff;font-family:var(--font);font-size:15px;font-weight:700;cursor:pointer;transition:all .25s;letter-spacing:.03em}
+.restart-btn:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(255,77,46,.4)}
+
+/* ── COMPLEXITY PAGE ── */
 .cplx-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:36px}
+@media(max-width:600px){.cplx-grid{grid-template-columns:1fr}}
 .cplx-card{background:var(--s1);border:1px solid var(--border);border-radius:18px;padding:30px;text-align:center}
 .cplx-big{display:block;font-size:56px;font-weight:800;font-family:var(--mono);background:linear-gradient(135deg,var(--curr),var(--nxt));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
 .cplx-card h4{font-size:15px;font-weight:700;margin-bottom:8px}
@@ -206,131 +320,79 @@ body{background:var(--bg);color:var(--text)}
 .app-card h4{font-size:13px;font-weight:700;margin-bottom:5px}
 .app-card p{font-size:12px;color:var(--text2);line-height:1.6}
 
-/* ══════════════════════════════════════
-   QUIZ — 3 SETS SYSTEM
-══════════════════════════════════════ */
-/* Set selector */
-.set-selector{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap}
-.set-tab{flex:1;min-width:140px;padding:16px;border-radius:16px;border:1.5px solid var(--border);background:var(--s1);cursor:pointer;text-align:center;transition:all .25s;position:relative;overflow:hidden}
-.set-tab::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .25s}
-.set-tab:hover::before{opacity:1}
-.set-tab.locked{opacity:.45;cursor:not-allowed}
-.set-tab.unlocked:hover{border-color:var(--border2);transform:translateY(-2px)}
-.set-tab.active-set{transform:translateY(-2px)}
-.set-tab-icon{font-size:28px;margin-bottom:8px}
-.set-tab-title{font-size:14px;font-weight:700;margin-bottom:4px}
-.set-tab-diff{font-size:10px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
-.set-tab-score{font-size:11px;font-family:var(--mono);color:var(--text3)}
-.set-tab-lock{position:absolute;top:10px;right:12px;font-size:14px;opacity:.6}
-
-/* Set 1 — Beginner */
-.set-tab.s1-tab{--sc:#00e5a0}
-.set-tab.s1-tab::before{background:rgba(0,229,160,0.06)}
-.set-tab.active-set.s1-tab{border-color:rgba(0,229,160,0.5);box-shadow:0 0 20px rgba(0,229,160,0.12)}
-.set-tab.s1-tab .set-tab-diff{color:#00e5a0}
-/* Set 2 — Intermediate */
-.set-tab.s2-tab{--sc:#fbbf24}
-.set-tab.s2-tab::before{background:rgba(251,191,36,0.06)}
-.set-tab.active-set.s2-tab{border-color:rgba(251,191,36,0.5);box-shadow:0 0 20px rgba(251,191,36,0.12)}
-.set-tab.s2-tab .set-tab-diff{color:#fbbf24}
-/* Set 3 — Advanced */
-.set-tab.s3-tab{--sc:#ff4d2e}
-.set-tab.s3-tab::before{background:rgba(255,77,46,0.06)}
-.set-tab.active-set.s3-tab{border-color:rgba(255,77,46,0.5);box-shadow:0 0 20px rgba(255,77,46,0.12)}
-.set-tab.s3-tab .set-tab-diff{color:#ff4d2e}
-
-/* Quiz HUD */
-.quiz-hud{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
-.qhud-left{display:flex;align-items:center;gap:16px}
-.qhud-score{font-size:14px;font-weight:700;color:var(--gold)}
-.qhud-score span{font-family:var(--mono);font-size:20px}
-.qhud-set-badge{font-size:10px;font-family:var(--mono);padding:4px 10px;border-radius:20px;letter-spacing:.1em;text-transform:uppercase}
-.qhud-progress{display:flex;gap:5px}
-.qhud-dot{width:32px;height:5px;border-radius:3px;background:var(--s4);transition:all .4s}
-.qhud-dot.q-done{background:var(--prev)}
-.qhud-dot.q-curr{background:var(--curr);animation:qpulse 1s ease-in-out infinite}
-@keyframes qpulse{0%,100%{opacity:1}50%{opacity:.6}}
-.qhud-dot.q-wrong{background:#ef4444}
-
-/* Quiz card */
-.quiz-card{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:32px;transition:all .3s;animation:cardIn .3s ease}
-@keyframes cardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.q-num{font-family:var(--mono);font-size:10px;color:var(--curr);letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
-.q-text{font-size:17px;font-weight:700;line-height:1.55;margin-bottom:24px}
-.q-text code{font-family:var(--mono);font-size:14px;background:rgba(255,255,255,.07);padding:2px 8px;border-radius:5px;color:var(--nxt)}
-.q-opts{display:flex;flex-direction:column;gap:10px}
-.qopt{padding:15px 20px;background:var(--s2);border:1.5px solid var(--border);border-radius:12px;cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;text-align:left;font-family:var(--font);color:var(--text);position:relative;overflow:hidden}
-.qopt:hover:not(:disabled){border-color:rgba(255,77,46,.4);color:var(--curr)}
-.qopt.correct{border-color:var(--prev);background:rgba(0,229,160,.08);color:var(--prev)}
-.qopt.wrong{border-color:#ef4444;background:rgba(239,68,68,.08);color:#ef4444}
-.qopt:disabled{cursor:default}
-.q-feedback{margin-top:16px;padding:14px 18px;border-radius:12px;font-size:13px;line-height:1.75;display:none}
-.q-feedback.show{display:block}
-.q-feedback.ok{background:rgba(0,229,160,.07);border:1px solid rgba(0,229,160,.2);color:var(--prev)}
-.q-feedback.bad{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:#f87171}
-.q-next{margin-top:18px;padding:12px 26px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--curr),#e03520);color:#fff;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;display:none;transition:transform .2s;letter-spacing:.02em}
-.q-next:hover{transform:scale(1.04)}
-.q-next.show{display:inline-block}
-
-/* Set Complete Screen */
-.set-complete{display:none;text-align:center;padding:40px 24px;background:var(--s1);border:1px solid var(--border);border-radius:20px;animation:pageIn .4s ease}
-.set-complete.show{display:block}
-.sc-trophy{font-size:60px;margin-bottom:14px;animation:trophyBounce .7s cubic-bezier(.34,1.56,.64,1)}
-@keyframes trophyBounce{0%{transform:scale(0) rotate(-15deg)}100%{transform:scale(1) rotate(0)}}
-.sc-title{font-size:26px;font-weight:800;margin-bottom:6px}
-.sc-score{font-size:52px;font-weight:800;font-family:var(--mono);background:linear-gradient(135deg,var(--gold),var(--curr),var(--nxt));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:6px}
-.sc-sub{font-size:14px;color:var(--text2);margin-bottom:20px;line-height:1.6}
-.stars-row{display:flex;gap:8px;justify-content:center;margin-bottom:22px}
-.star-display{font-size:30px;transition:all .3s;filter:grayscale(1);opacity:.3}
-.star-display.lit{filter:none;opacity:1;animation:starLit .4s cubic-bezier(.34,1.56,.64,1) forwards}
-@keyframes starLit{0%{transform:scale(0)}80%{transform:scale(1.3)}100%{transform:scale(1)}}
-.sc-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
-.sc-btn{padding:12px 24px;border-radius:50px;border:none;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:all .25s}
-.sc-btn-primary{background:linear-gradient(135deg,var(--curr),#e03520);color:#fff}
-.sc-btn-primary:hover{transform:scale(1.04);box-shadow:0 0 24px rgba(255,77,46,.4)}
-.sc-btn-sec{background:var(--s3);color:var(--text);border:1px solid var(--border2)}
-.sc-btn-sec:hover{border-color:var(--curr);color:var(--curr)}
-/* Analysis bars */
-.abar-wrap{background:var(--s2);border:1px solid var(--border);border-radius:14px;padding:18px;text-align:left;margin-top:16px}
-.abar-title{font-size:10px;font-family:var(--mono);color:var(--text3);letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px}
-.abar-row{display:flex;align-items:center;gap:10px;font-size:12px;margin-bottom:8px}
-.abar-label{width:110px;color:var(--text2);font-family:var(--mono);text-align:right;flex-shrink:0}
-.abar-track{flex:1;background:rgba(255,255,255,0.06);border-radius:4px;height:8px;overflow:hidden}
-.abar-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.34,1.56,.64,1);width:0}
-.abar-pct{width:32px;font-size:11px;font-family:var(--mono);color:var(--text)}
-
-/* Unlock toast */
-.unlock-banner{display:none;align-items:center;gap:14px;padding:16px 20px;background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.3);border-radius:14px;margin-bottom:20px;animation:slideIn .5s ease}
-.unlock-banner.show{display:flex}
-.ub-icon{font-size:28px}
-.ub-text{flex:1}
-.ub-title{font-size:14px;font-weight:700;color:#fbbf24;margin-bottom:3px}
-.ub-sub{font-size:12px;color:var(--text2)}
-
-/* Particles / Confetti */
+/* ── CONFETTI CANNON ── */
 .particle{position:fixed;pointer-events:none;z-index:9999;font-size:20px;animation:particleFly 2s ease-out forwards}
 @keyframes particleFly{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-200px) scale(0) rotate(360deg)}}
 .confetti-piece{position:fixed;pointer-events:none;z-index:9999;width:10px;height:10px;border-radius:2px;animation:confettiFall var(--dur,2.5s) ease-in forwards}
-@keyframes confettiFall{0%{transform:translateY(0) rotate(0) scaleX(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scaleX(-1);opacity:0}}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg) scaleX(1);opacity:1}100%{transform:translateY(110vh) rotate(720deg) scaleX(-1);opacity:0}}
+/* ── GIFT BOX OVERLAY ── */
+.gift-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:10000;display:flex;align-items:center;justify-content:center;animation:fadeInOv .3s ease}
+@keyframes fadeInOv{from{opacity:0}to{opacity:1}}
+.gift-box{background:linear-gradient(135deg,#1a1c30,#0c0d1a);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:40px 48px;text-align:center;max-width:480px;width:90%;position:relative;animation:giftPop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes giftPop{from{transform:scale(0.5) rotate(-8deg);opacity:0}to{transform:scale(1) rotate(0deg);opacity:1}}
+.gift-emoji{font-size:80px;display:block;margin-bottom:12px;animation:giftBounce 1s ease-in-out infinite alternate}
+@keyframes giftBounce{from{transform:translateY(0) rotate(-5deg)}to{transform:translateY(-12px) rotate(5deg)}}
+.gift-title{font-size:26px;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#fbbf24,#ff4d2e,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.gift-subtitle{font-size:14px;color:#8890b8;margin-bottom:6px;line-height:1.6}
+.gift-badge{display:inline-block;font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;margin:10px 0 18px;font-family:'JetBrains Mono',monospace}
+.gift-topics{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 18px;margin:14px 0;text-align:left}
+.gift-topics h4{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#444868;font-family:'JetBrains Mono',monospace;margin-bottom:10px}
+.gift-topic-item{font-size:13px;color:#8890b8;padding:5px 0;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.gift-topic-item:last-child{border-bottom:none}
+.gift-close{padding:12px 32px;border-radius:50px;border:none;font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .25s;letter-spacing:.02em;margin-top:6px}
+/* Score analysis bar */
+.analysis-bar{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+.abar-row{display:flex;align-items:center;gap:10px;font-size:12px}
+.abar-label{width:110px;color:#8890b8;font-family:'JetBrains Mono',monospace;text-align:right;flex-shrink:0}
+.abar-track{flex:1;background:rgba(255,255,255,0.06);border-radius:4px;height:8px;overflow:hidden}
+.abar-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.34,1.56,.64,1);width:0}
+.abar-pct{width:32px;font-size:11px;font-family:'JetBrains Mono',monospace;color:#f0f1ff}
 
-/* Toast */
+/* ── TOAST ── */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--s3);border:1px solid var(--border2);border-radius:12px;padding:12px 20px;font-size:13px;font-weight:600;z-index:9998;transition:transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,.4)}
 .toast.show{transform:translateX(-50%) translateY(0)}
+
+/* Scrollbar */
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--s4);border-radius:3px}
+
+/* Animations for page transitions */
+.pane{animation:none}
+.pane.active{animation:pageIn .35s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* Tooltip */
 [data-tip]{position:relative}
-[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100%+6px);left:50%;transform:translateX(-50%);background:var(--s4);border:1px solid var(--border2);color:var(--text2);font-size:11px;font-family:var(--mono);padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;z-index:100}
+[data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--s4);border:1px solid var(--border2);color:var(--text2);font-size:11px;font-family:var(--mono);padding:4px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;z-index:100}
 [data-tip]:hover::after{opacity:1}
+
+/* section labels */
+.sec-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--curr);text-transform:uppercase;margin-bottom:10px}
+.sec-title{font-size:clamp(22px,3vw,34px);font-weight:800;margin-bottom:10px}
+.sec-sub{font-size:14px;color:var(--text2);line-height:1.7;max-width:580px;margin-bottom:28px}
+
+/* Mode toggle */
+.mode-strip{display:flex;gap:6px;margin-bottom:20px}
+.mode-btn{padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
+.mode-btn.active-mode{background:rgba(255,77,46,.1);border-color:rgba(255,77,46,.4);color:var(--curr)}
 </style>
 </head>
 <body>
+
+<!-- Background FX -->
 <div class="bg-fx">
-  <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
   <div class="stars" id="stars"></div>
 </div>
+
+<!-- Toast -->
 <div class="toast" id="toast"></div>
+
 <div class="app">
+
 <!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="logo">
@@ -338,17 +400,42 @@ body{background:var(--bg);color:var(--text)}
     <div class="logo-text">LL Reversal</div>
     <div class="logo-sub">// visual_learning_tool</div>
   </div>
-  <div class="nav-item active" onclick="goPage(0,this)" id="nav0"><span class="nav-ico">🏠</span><span>Introduction</span><span class="nav-badge">01</span></div>
-  <div class="nav-item" onclick="goPage(1,this)" id="nav1"><span class="nav-ico">🧩</span><span>The Algorithm</span><span class="nav-badge">02</span></div>
-  <div class="nav-item" onclick="goPage(2,this)" id="nav2"><span class="nav-ico">▶️</span><span>Live Visualizer</span><span class="nav-badge">03</span></div>
-  <div class="nav-item" onclick="goPage(3,this)" id="nav3"><span class="nav-ico">📊</span><span>Analysis</span><span class="nav-badge">04</span></div>
-  <div class="nav-item" onclick="goPage(4,this)" id="nav4"><span class="nav-ico">🎯</span><span>Quiz — 3 Sets</span><span class="nav-badge">05</span></div>
+
+  <div class="nav-item active" onclick="goPage(0,this)" id="nav0">
+    <span class="nav-ico">🏠</span>
+    <span>Introduction</span>
+    <span class="nav-badge">01</span>
+  </div>
+  <div class="nav-item" onclick="goPage(1,this)" id="nav1">
+    <span class="nav-ico">🧩</span>
+    <span>The Algorithm</span>
+    <span class="nav-badge">02</span>
+  </div>
+  <div class="nav-item" onclick="goPage(2,this)" id="nav2">
+    <span class="nav-ico">▶️</span>
+    <span>Live Visualizer</span>
+    <span class="nav-badge">03</span>
+  </div>
+  <div class="nav-item" onclick="goPage(3,this)" id="nav3">
+    <span class="nav-ico">📊</span>
+    <span>Analysis</span>
+    <span class="nav-badge">04</span>
+  </div>
+  <div class="nav-item" onclick="goPage(4,this)" id="nav4">
+    <span class="nav-ico">🎯</span>
+    <span>Quiz</span>
+    <span class="nav-badge">05</span>
+  </div>
+
   <div class="sidebar-bottom">
     <div class="progress-label">YOUR PROGRESS</div>
-    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="global-prog" style="width:20%"></div></div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="global-prog" style="width:20%"></div>
+    </div>
     <div class="progress-pct" id="global-pct">Page 1 of 5</div>
   </div>
 </nav>
+
 <!-- MAIN -->
 <div class="main">
   <div class="topbar">
@@ -358,770 +445,882 @@ body{background:var(--bg);color:var(--text)}
       <button class="tbtn primary" onclick="nextPage()">Next →</button>
     </div>
   </div>
+
   <div class="page-content">
 
-  <!-- PAGE 0: INTRO -->
-  <div class="pane active" id="pane-0">
-    <div class="hero-section">
-      <div class="hero-tag">Data Structures · Visual Learning</div>
-      <h1 class="hero-h"><span class="gr">Linked List<br/>Reversal</span></h1>
-      <p class="hero-sub">Master one of the most iconic algorithm challenges through animation, interactivity, and step-by-step visual breakdowns. No fluff — just pure understanding.</p>
-      <div class="hero-btns">
-        <button class="hbtn hbtn-primary" onclick="goPage(2,document.getElementById('nav2'))">▶ Jump to Visualizer</button>
-        <button class="hbtn hbtn-sec" onclick="goPage(1,document.getElementById('nav1'))">📖 Learn the Algorithm</button>
-      </div>
-    </div>
-    <div class="static-vis">
-      <div class="vis-label">// Original: 1 → 2 → 3 → 4 → 5 → null</div>
-      <div class="slist" id="intro-list-orig"></div>
-    </div>
-    <div style="text-align:center;font-size:22px;margin:4px 0;color:var(--text3)">↓ after reversal ↓</div>
-    <div class="static-vis">
-      <div class="vis-label">// Reversed: 5 → 4 → 3 → 2 → 1 → null</div>
-      <div class="slist" id="intro-list-rev"></div>
-    </div>
-    <div class="two-col" style="margin-top:30px">
-      <div class="info-card"><div class="ic-hd">🔗</div><div class="ic-t">What is a Node?</div><p class="ic-b">Each element is a <strong>node</strong> with two things: a <strong>value</strong> (the data) and a <strong>pointer</strong> to the next node. The last one points to <em>null</em> — the end.</p></div>
-      <div class="info-card"><div class="ic-hd">👉</div><div class="ic-t">One Direction Only</div><p class="ic-b">Singly linked lists travel <strong>forward only</strong>. You can't jump back. To traverse backwards, you'd restart — which is why reversal matters!</p></div>
-      <div class="info-card"><div class="ic-hd">🏠</div><div class="ic-t">vs. an Array</div><p class="ic-b">Arrays sit in one memory block. Linked list nodes scatter anywhere — each pointing to the next. Great for fast insertions/deletions, no random access.</p></div>
-      <div class="info-card"><div class="ic-hd">🔄</div><div class="ic-t">The Goal: Reversal</div><p class="ic-b">Flip all the arrows. <code style="font-family:var(--mono);color:var(--curr)">1→2→3→4→5</code> becomes <code style="font-family:var(--mono);color:var(--prev)">5→4→3→2→1</code>. The trick? We do it with just <strong>3 variables</strong> in one pass.</p></div>
-    </div>
-  </div>
-
-  <!-- PAGE 1: ALGORITHM -->
-  <div class="pane" id="pane-1">
-    <div class="sec-label">02 — The Algorithm</div>
-    <div class="sec-title">How Does it Work?</div>
-    <p class="sec-sub">We use exactly three pointer variables: <strong style="color:var(--prev)">prev</strong>, <strong style="color:var(--curr)">curr</strong>, and <strong style="color:var(--nxt)">next</strong>. Here's each step in plain English.</p>
-    <div class="algo-steps-list">
-      <div class="algo-step"><div class="step-num-badge sn-o">0</div><div class="step-body"><h4>Initialize the three pointers</h4><p><strong style="color:var(--prev)">prev = null</strong> — nothing behind us yet. <strong style="color:var(--curr)">curr = head</strong> — start at the first node. <strong style="color:var(--nxt)">next = null</strong> — will be filled each loop.</p><div class="code-snip">prev = None | curr = head | next = None</div></div></div>
-      <div class="algo-step"><div class="step-num-badge sn-p">1</div><div class="step-body"><h4>💾 Save <code style="color:var(--nxt);font-family:var(--mono)">next</code> before breaking the link</h4><p>Before cutting the forward link, save it. If we don't, we'd lose the rest of the list — <strong>permanently</strong>. Always save first!</p><div class="code-snip">next = curr.next // save the next node</div></div></div>
-      <div class="algo-step"><div class="step-num-badge sn-g">2</div><div class="step-body"><h4>↩️ Flip the pointer — the core reversal</h4><p>Make curr point to <strong style="color:var(--prev)">prev</strong> instead of forward. The first node points to null (prev starts as null). <em>This is the magic step.</em></p><div class="code-snip">curr.next = prev // flip the arrow!</div></div></div>
-      <div class="algo-step"><div class="step-num-badge sn-o">3</div><div class="step-body"><h4>Advance <code style="color:var(--prev);font-family:var(--mono)">prev</code> forward</h4><p>Move <strong style="color:var(--prev)">prev</strong> to the current node. It marks the front of the growing reversed chain.</p><div class="code-snip">prev = curr // advance prev</div></div></div>
-      <div class="algo-step"><div class="step-num-badge sn-g">4</div><div class="step-body"><h4>Advance <code style="color:var(--curr);font-family:var(--mono)">curr</code> using saved next</h4><p>Jump curr to the saved node. Repeat from step 1 until curr is null — every node gets visited exactly once.</p><div class="code-snip">curr = next // move forward</div></div></div>
-      <div class="algo-step"><div class="step-num-badge sn-b">5</div><div class="step-body"><h4>🏁 Return <code style="color:var(--done);font-family:var(--mono)">prev</code> — the new head</h4><p>When curr is null, we're done. <strong style="color:var(--done)">prev</strong> points to what was the last node — now the new head of the reversed list!</p><div class="code-snip">return prev // new head</div></div></div>
-    </div>
-    <div class="code-block">
-      <div class="cb-lang">Python</div>
-      <div><span class="kw">def</span> <span class="fn">reverse_linked_list</span>(<span class="va">head</span>):</div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># Three pointers — that's all we need</span></div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">prev</span> <span class="op">=</span> <span class="li">None</span></div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">curr</span> <span class="op">=</span> <span class="va">head</span></div>
-      <div>&nbsp;</div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">while</span> <span class="va">curr</span> <span class="kw">is not</span> <span class="li">None</span>:</div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">next_node</span> <span class="op">=</span> <span class="va">curr</span>.<span class="fn">next</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 1. Save next</span></div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">curr</span>.<span class="fn">next</span> <span class="op">=</span> <span class="va">prev</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 2. Flip pointer</span></div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">prev</span> <span class="op">=</span> <span class="va">curr</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 3. Move prev</span></div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">curr</span> <span class="op">=</span> <span class="va">next_node</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 4. Move curr</span></div>
-      <div>&nbsp;</div>
-      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="va">prev</span>&nbsp;&nbsp;<span class="cm"># new head of reversed list</span></div>
-    </div>
-  </div>
-
-  <!-- PAGE 2: VISUALIZER -->
-  <div class="pane" id="pane-2">
-    <div style="padding:0 0 0">
-      <div class="sec-label">03 — Interactive</div>
-      <div class="sec-title" style="margin-bottom:4px">Live <span style="color:var(--curr)">Visualizer</span></div>
-      <p style="font-size:13px;color:var(--text2);margin-bottom:18px">Watch every pointer move. Type your own list, then step through the reversal.</p>
-      <div class="input-section">
-        <div class="inp-title">Your List — type any values, separated by commas</div>
-        <div class="inp-row">
-          <input class="vi-input" id="vi-input" type="text" value="1, 2, 3, 4, 5" placeholder="e.g. A, B, C or 10, 20, 30"/>
-          <button class="vi-build" onclick="buildVisualization()">⚡ Build List</button>
-        </div>
-        <div class="inp-hint" id="inp-hint">↑ Change values and click Build to try your own list!</div>
-      </div>
-      <div class="controls">
-        <button class="ctrl-btn" id="cb-prev" onclick="stepPrev()" disabled data-tip="Previous step">← Prev</button>
-        <button class="ctrl-btn" id="cb-next" onclick="stepNext()" disabled data-tip="Next step">Next →</button>
-        <button class="ctrl-btn play-btn" id="cb-auto" onclick="toggleAuto()" disabled>▶ Auto Play</button>
-        <button class="ctrl-btn" id="cb-reset" onclick="resetViz()" disabled>↺ Reset</button>
-        <div class="speed-wrap">
-          <label>Speed</label>
-          <input type="range" id="speed-slider" min="200" max="2500" value="1000" step="100" oninput="updateSpeed(this.value)"/>
-          <span class="speed-lbl" id="speed-lbl">Medium</span>
+    <!-- PAGE 0: INTRO -->
+    <div class="pane active" id="pane-0" style="padding:28px 32px 60px">
+      <div class="hero-section">
+        <div class="hero-tag">Data Structures · Visual Learning</div>
+        <h1 class="hero-h"><span class="gr">Linked List<br/>Reversal</span></h1>
+        <p class="hero-sub">Master one of the most iconic algorithm challenges through animation, interactivity, and step-by-step visual breakdowns. No fluff — just pure understanding.</p>
+        <div class="hero-btns">
+          <button class="hbtn hbtn-primary" onclick="goPage(2,document.getElementById('nav2'))">▶ Jump to Visualizer</button>
+          <button class="hbtn hbtn-sec" onclick="goPage(1,document.getElementById('nav1'))">📖 Learn the Algorithm</button>
         </div>
       </div>
-      <div class="prog-wrap">
-        <div class="prog-steps" id="prog-dots"></div>
-        <div class="prog-info"><span id="prog-label-left">Build your list to start</span><span id="prog-label-right">0%</span></div>
+
+      <div class="static-vis">
+        <div class="vis-label">// Original: 1 → 2 → 3 → 4 → 5 → null</div>
+        <div class="slist" id="intro-list-orig"></div>
       </div>
-    </div>
-    <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:12px">Live Pointer State</div>
-    <div class="memory-view">
-      <div class="mem-card mc-prev" id="mem-prev"><div class="mem-label">prev pointer</div><div class="mem-val" id="mem-prev-val">None</div><div class="mem-desc">The node behind curr</div></div>
-      <div class="mem-card mc-curr" id="mem-curr"><div class="mem-label">curr pointer</div><div class="mem-val" id="mem-curr-val">head</div><div class="mem-desc">The node we process now</div></div>
-      <div class="mem-card mc-nxt" id="mem-nxt"><div class="mem-label">next pointer</div><div class="mem-val" id="mem-nxt-val">None</div><div class="mem-desc">Saved before flipping</div></div>
-    </div>
-    <div class="arena" id="arena">
-      <div class="arena-section">
-        <div class="arena-label">Original list (pointer arrows)</div>
-        <div class="ptr-labels" id="ptr-label-row"></div>
-        <div class="node-track" id="node-track"></div>
+      <div style="text-align:center;font-size:22px;margin:4px 0;color:var(--text3)">↓ after reversal ↓</div>
+      <div class="static-vis">
+        <div class="vis-label">// Reversed: 5 → 4 → 3 → 2 → 1 → null</div>
+        <div class="slist" id="intro-list-rev"></div>
       </div>
-      <div id="rev-section" style="display:none">
-        <div class="arena-section">
-          <div class="arena-label" id="rev-arena-label" style="color:var(--done)">Reversed list forming →</div>
-          <div class="node-track" id="rev-track"></div>
+
+      <div class="two-col" style="margin-top:30px">
+        <div class="info-card">
+          <div class="ic-hd">🔗</div>
+          <div class="ic-t">What is a Node?</div>
+          <p class="ic-b">Each element is a <strong>node</strong> with two things: a <strong>value</strong> (the data) and a <strong>pointer</strong> to the next node. The last one points to <em>null</em> — the end.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-hd">👉</div>
+          <div class="ic-t">One Direction Only</div>
+          <p class="ic-b">Singly linked lists travel <strong>forward only</strong>. You can't jump back. To traverse backwards, you'd restart from the beginning — which is why reversal matters!</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-hd">🏠</div>
+          <div class="ic-t">vs. an Array</div>
+          <p class="ic-b">Arrays sit in one memory block. Linked list nodes scatter anywhere — each pointing to the next. Great for fast insertions/deletions, no random access.</p>
+        </div>
+        <div class="info-card">
+          <div class="ic-hd">🔄</div>
+          <div class="ic-t">The Goal: Reversal</div>
+          <p class="ic-b">Flip all the arrows. <code style="font-family:var(--mono);color:var(--curr)">1→2→3→4→5</code> becomes <code style="font-family:var(--mono);color:var(--prev)">5→4→3→2→1</code>. The trick? We do it with just <strong>3 variables</strong> in one pass.</p>
         </div>
       </div>
     </div>
-    <div class="explainer" id="explainer">
-      <div class="exp-top">
-        <span class="exp-step-counter" id="exp-counter">Step 0 of 0</span>
-        <span class="exp-badge" id="exp-badge" style="background:rgba(255,77,46,0.12);color:var(--curr)">initializing</span>
-      </div>
-      <div class="exp-msg" id="exp-msg">Enter your list above and click <strong>⚡ Build List</strong> to begin.</div>
-      <div class="exp-code" id="exp-code">prev = None  |  curr = head  |  next = None</div>
-    </div>
-    <div class="success-banner" id="success-banner">
-      <span class="sb-icon">🎉</span>
-      <div><div class="sb-text" id="sb-text">Reversal complete!</div><div class="sb-sub" id="sb-sub">Great job following along!</div></div>
-      <button class="ctrl-btn" onclick="resetViz()" style="margin-left:auto">Try Again ↺</button>
-    </div>
-    <div class="legend" style="margin-top:16px">
-      <div class="leg-item"><div class="leg-dot" style="background:var(--curr)"></div> curr — node being processed</div>
-      <div class="leg-item"><div class="leg-dot" style="background:var(--prev)"></div> prev — tail of reversed chain</div>
-      <div class="leg-item"><div class="leg-dot" style="background:var(--nxt)"></div> next — saved before flip</div>
-      <div class="leg-item"><div class="leg-dot" style="background:var(--done)"></div> reversed ✓</div>
-    </div>
-    <div style="height:40px"></div>
-  </div>
 
-  <!-- PAGE 3: ANALYSIS -->
-  <div class="pane" id="pane-3">
-    <div class="sec-label">04 — Complexity Analysis</div>
-    <div class="sec-title">Time & Space</div>
-    <p class="sec-sub">This algorithm is a beautiful example of efficiency — one pass, zero extra memory.</p>
-    <div class="cplx-grid">
-      <div class="cplx-card"><span class="cplx-big">O(n)</span><h4>Time Complexity</h4><p>We visit each of the n nodes exactly once. No nested loops, no backtracking — a clean linear scan.</p></div>
-      <div class="cplx-card"><span class="cplx-big">O(1)</span><h4>Space Complexity</h4><p>Only 3 variables (prev, curr, next) no matter how large the list. We modify pointers in-place — no extra array or stack.</p></div>
-    </div>
-    <div class="sec-label" style="margin-bottom:14px">Real-World Applications</div>
-    <div class="app-grid">
-      <div class="app-card"><div class="app-ico">↩️</div><h4>Undo/Redo</h4><p>Text editors store history as a linked list. Reversal enables backward traversal through edits.</p></div>
-      <div class="app-card"><div class="app-ico">🌐</div><h4>Browser History</h4><p>Back/forward navigation uses linked structures — reversal is at the heart of going backward.</p></div>
-      <div class="app-card"><div class="app-ico">🧮</div><h4>Big Numbers</h4><p>Digits stored as a list — reversal aligns digits for arithmetic operations on huge numbers.</p></div>
-      <div class="app-card"><div class="app-ico">🧬</div><h4>DNA Processing</h4><p>Bioinformatics processes complement strands — often the reverse of the original DNA sequence.</p></div>
-      <div class="app-card"><div class="app-ico">🗂️</div><h4>Stack Reversal</h4><p>A stack is a linked list under the hood. Reversing it flips the LIFO order — used in schedulers.</p></div>
-      <div class="app-card"><div class="app-ico">🎮</div><h4>Game Replays</h4><p>Move histories stored as linked lists — reversal enables "watch your game in reverse" features.</p></div>
-    </div>
-  </div>
+    <!-- PAGE 1: ALGORITHM -->
+    <div class="pane" id="pane-1" style="padding:28px 32px 60px">
+      <div class="sec-label">02 — The Algorithm</div>
+      <div class="sec-title">How Does it Work?</div>
+      <p class="sec-sub">We use exactly three pointer variables: <strong style="color:var(--prev)">prev</strong>, <strong style="color:var(--curr)">curr</strong>, and <strong style="color:var(--nxt)">next</strong>. Here's each step in plain English.</p>
 
-  <!-- PAGE 4: QUIZ — 3 SETS -->
-  <div class="pane" id="pane-4">
-    <div class="sec-label">05 — Test Your Knowledge</div>
-    <div class="sec-title">Quiz — 3 Sets 🎯</div>
-    <p class="sec-sub">Three sets of 5 questions each. Difficulty increases with every set. Complete Set 1 to unlock Set 2, and so on!</p>
+      <div class="algo-steps-list">
+        <div class="algo-step">
+          <div class="step-num-badge sn-o">0</div>
+          <div class="step-body">
+            <h4>Initialize the three pointers</h4>
+            <p><strong style="color:var(--prev)">prev = null</strong> — nothing behind us yet. <strong style="color:var(--curr)">curr = head</strong> — start at the first node. <strong style="color:var(--nxt)">next = null</strong> — will be filled each loop.</p>
+            <div class="code-snip">prev = None &nbsp;|&nbsp; curr = head &nbsp;|&nbsp; next = None</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="step-num-badge sn-p">1</div>
+          <div class="step-body">
+            <h4>💾 Save <code style="color:var(--nxt);font-family:var(--mono)">next</code> before breaking the link</h4>
+            <p>Before cutting the forward link, save it. If we don't, we'd lose the rest of the list — <strong>permanently</strong>. Always save first!</p>
+            <div class="code-snip">next = curr.next &nbsp;&nbsp;// save the next node</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="step-num-badge sn-g">2</div>
+          <div class="step-body">
+            <h4>↩️ Flip the pointer — the core reversal</h4>
+            <p>Make curr point to <strong style="color:var(--prev)">prev</strong> instead of forward. The first node points to null (prev starts as null). <em>This is the magic step.</em></p>
+            <div class="code-snip">curr.next = prev &nbsp;&nbsp;// flip the arrow!</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="step-num-badge sn-o">3</div>
+          <div class="step-body">
+            <h4>Advance <code style="color:var(--prev);font-family:var(--mono)">prev</code> forward</h4>
+            <p>Move <strong style="color:var(--prev)">prev</strong> to the current node. It marks the front of the growing reversed chain.</p>
+            <div class="code-snip">prev = curr &nbsp;&nbsp;// advance prev</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="step-num-badge sn-g">4</div>
+          <div class="step-body">
+            <h4>Advance <code style="color:var(--curr);font-family:var(--mono)">curr</code> using saved next</h4>
+            <p>Jump curr to the saved node. Repeat from step 1 until curr is null — every node gets visited exactly once.</p>
+            <div class="code-snip">curr = next &nbsp;&nbsp;// move forward</div>
+          </div>
+        </div>
+        <div class="algo-step">
+          <div class="step-num-badge sn-b">5</div>
+          <div class="step-body">
+            <h4>🏁 Return <code style="color:var(--done);font-family:var(--mono)">prev</code> — the new head</h4>
+            <p>When curr is null, we're done. <strong style="color:var(--done)">prev</strong> points to what was the last node — now the new head of the reversed list!</p>
+            <div class="code-snip">return prev &nbsp;&nbsp;// new head</div>
+          </div>
+        </div>
+      </div>
 
-    <!-- Unlock banner -->
-    <div class="unlock-banner" id="unlock-banner">
-      <div class="ub-icon">🔓</div>
-      <div class="ub-text">
-        <div class="ub-title" id="unlock-title">New Set Unlocked!</div>
-        <div class="ub-sub" id="unlock-sub">You can now attempt the next difficulty level.</div>
-      </div>
-    </div>
-
-    <!-- Set Selector Tabs -->
-    <div class="set-selector">
-      <div class="set-tab s1-tab unlocked active-set" id="tab-set0" onclick="switchSet(0)">
-        <div class="set-tab-icon">🌱</div>
-        <div class="set-tab-title">Set 1</div>
-        <div class="set-tab-diff">Beginner</div>
-        <div class="set-tab-score" id="tab-score0">Not attempted</div>
-      </div>
-      <div class="set-tab s2-tab locked" id="tab-set1" onclick="switchSet(1)">
-        <div class="set-tab-lock" id="tab-lock1">🔒</div>
-        <div class="set-tab-icon">⚡</div>
-        <div class="set-tab-title">Set 2</div>
-        <div class="set-tab-diff">Intermediate</div>
-        <div class="set-tab-score" id="tab-score1">Complete Set 1 first</div>
-      </div>
-      <div class="set-tab s3-tab locked" id="tab-set2" onclick="switchSet(2)">
-        <div class="set-tab-lock" id="tab-lock2">🔒</div>
-        <div class="set-tab-icon">🔥</div>
-        <div class="set-tab-title">Set 3</div>
-        <div class="set-tab-diff">Advanced</div>
-        <div class="set-tab-score" id="tab-score2">Complete Set 2 first</div>
+      <div class="code-block">
+        <div class="cb-lang">Python</div>
+        <div><span class="kw">def</span> <span class="fn">reverse_linked_list</span>(<span class="va">head</span>):</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># Three pointers — that's all we need</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">prev</span> <span class="op">=</span> <span class="li">None</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">curr</span> <span class="op">=</span> <span class="va">head</span></div>
+        <div>&nbsp;</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">while</span> <span class="va">curr</span> <span class="kw">is not</span> <span class="li">None</span>:</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">next_node</span> <span class="op">=</span> <span class="va">curr</span>.<span class="fn">next</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 1. Save next</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">curr</span>.<span class="fn">next</span> <span class="op">=</span> <span class="va">prev</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 2. Flip pointer</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">prev</span> <span class="op">=</span> <span class="va">curr</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 3. Move prev</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="va">curr</span> <span class="op">=</span> <span class="va">next_node</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 4. Move curr</span></div>
+        <div>&nbsp;</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="va">prev</span>&nbsp;&nbsp;<span class="cm"># new head of reversed list</span></div>
       </div>
     </div>
 
-    <!-- Quiz Area (shared, reused per set) -->
-    <div id="quiz-area">
-      <div class="quiz-hud">
-        <div class="qhud-left">
+    <!-- PAGE 2: VISUALIZER -->
+    <div class="pane" id="pane-2" id="viz-pane">
+      <div style="padding:24px 28px 0">
+        <div class="sec-label">03 — Interactive</div>
+        <div class="sec-title" style="margin-bottom:4px">Live <span style="color:var(--curr)">Visualizer</span></div>
+        <p style="font-size:13px;color:var(--text2);margin-bottom:18px">Watch every pointer move. Type your own list below, then step through the reversal.</p>
+
+        <!-- Input -->
+        <div class="input-section">
+          <div class="inp-title">Your List — type any values, separated by commas</div>
+          <div class="inp-row">
+            <input class="vi-input" id="vi-input" type="text" value="1, 2, 3, 4, 5" placeholder="e.g. A, B, C, D, E or 10, 20, 30"/>
+            <button class="vi-build" id="vi-build-btn" onclick="buildVisualization()">⚡ Build List</button>
+          </div>
+          <div class="inp-hint" id="inp-hint">↑ Change values and click Build to try your own list!</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+          <button class="ctrl-btn" id="cb-prev" onclick="stepPrev()" disabled data-tip="Go to previous step">← Prev</button>
+          <button class="ctrl-btn" id="cb-next" onclick="stepNext()" disabled data-tip="Go to next step">Next →</button>
+          <button class="ctrl-btn play-btn" id="cb-auto" onclick="toggleAuto()" disabled>▶ Auto Play</button>
+          <button class="ctrl-btn" id="cb-reset" onclick="resetViz()" disabled data-tip="Reset to start">↺ Reset</button>
+          <div class="speed-wrap">
+            <label>Speed</label>
+            <input type="range" id="speed-slider" min="200" max="2500" value="1000" step="100" oninput="updateSpeed(this.value)"/>
+            <span class="speed-lbl" id="speed-lbl">Medium</span>
+          </div>
+        </div>
+
+        <!-- Progress dots -->
+        <div class="prog-wrap">
+          <div class="prog-steps" id="prog-dots"></div>
+          <div class="prog-info">
+            <span id="prog-label-left">Build your list to start</span>
+            <span id="prog-label-right">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Memory Cards -->
+      <div style="padding:0 28px">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:12px">Live Pointer State</div>
+        <div class="memory-view">
+          <div class="mem-card mc-prev" id="mem-prev">
+            <div class="mem-label">prev pointer</div>
+            <div class="mem-val" id="mem-prev-val">None</div>
+            <div class="mem-desc">The node behind curr</div>
+          </div>
+          <div class="mem-card mc-curr" id="mem-curr">
+            <div class="mem-label">curr pointer</div>
+            <div class="mem-val" id="mem-curr-val">head</div>
+            <div class="mem-desc">The node we process now</div>
+          </div>
+          <div class="mem-card mc-nxt" id="mem-nxt">
+            <div class="mem-label">next pointer</div>
+            <div class="mem-val" id="mem-nxt-val">None</div>
+            <div class="mem-desc">Saved before flipping</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arena -->
+      <div style="padding:0 28px">
+        <div class="arena" id="arena">
+          <div class="arena-section">
+            <div class="arena-label">Original list (pointer arrows)</div>
+            <div class="ptr-labels" id="ptr-label-row"></div>
+            <div class="node-track" id="node-track"></div>
+          </div>
+          <div id="rev-section" style="display:none">
+            <div class="arena-section">
+              <div class="arena-label" id="rev-arena-label" style="color:var(--done)">Reversed list forming →</div>
+              <div class="node-track" id="rev-track"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explainer -->
+      <div style="padding:0 28px">
+        <div class="explainer" id="explainer">
+          <div class="exp-top">
+            <span class="exp-step-counter" id="exp-counter">Step 0 of 0</span>
+            <span class="exp-badge" id="exp-badge" style="background:rgba(255,77,46,0.12);color:var(--curr)">initializing</span>
+          </div>
+          <div class="exp-msg" id="exp-msg">Enter your list above and click <strong>⚡ Build List</strong> to begin. You can use any values — numbers, letters, anything!</div>
+          <div class="exp-code" id="exp-code">prev = None  |  curr = head  |  next = None</div>
+        </div>
+
+        <div class="success-banner" id="success-banner">
+          <span class="sb-icon">🎉</span>
+          <div>
+            <div class="sb-text" id="sb-text">Reversal complete!</div>
+            <div class="sb-sub" id="sb-sub">Great job following along!</div>
+          </div>
+          <button class="ctrl-btn" onclick="resetViz()" style="margin-left:auto">Try Again ↺</button>
+        </div>
+
+        <div class="legend" style="margin-top:16px">
+          <div class="leg-item"><div class="leg-dot" style="background:var(--curr)"></div> curr — node being processed</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--prev)"></div> prev — tail of reversed chain</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--nxt)"></div> next — saved before flip</div>
+          <div class="leg-item"><div class="leg-dot" style="background:var(--done)"></div> reversed ✓</div>
+        </div>
+      </div>
+      <div style="height:40px"></div>
+    </div>
+
+    <!-- PAGE 3: ANALYSIS -->
+    <div class="pane" id="pane-3" style="padding:28px 32px 60px">
+      <div class="sec-label">04 — Complexity Analysis</div>
+      <div class="sec-title">Time & Space</div>
+      <p class="sec-sub">This algorithm is a beautiful example of efficiency — one pass, zero extra memory.</p>
+      <div class="cplx-grid">
+        <div class="cplx-card">
+          <span class="cplx-big">O(n)</span>
+          <h4>Time Complexity</h4>
+          <p>We visit each of the n nodes exactly once. No nested loops, no backtracking — a clean linear scan.</p>
+        </div>
+        <div class="cplx-card">
+          <span class="cplx-big">O(1)</span>
+          <h4>Space Complexity</h4>
+          <p>Only 3 variables (prev, curr, next) no matter how large the list. We modify pointers in-place — no extra array or stack.</p>
+        </div>
+      </div>
+      <div class="sec-label" style="margin-bottom:14px">Real-World Applications</div>
+      <div class="app-grid">
+        <div class="app-card"><div class="app-ico">↩️</div><h4>Undo/Redo</h4><p>Text editors store history as a linked list. Reversal enables backward traversal through edits.</p></div>
+        <div class="app-card"><div class="app-ico">🌐</div><h4>Browser History</h4><p>Back/forward navigation uses linked structures — reversal is at the heart of going backward.</p></div>
+        <div class="app-card"><div class="app-ico">🧮</div><h4>Big Numbers</h4><p>Digits stored as a list — reversal aligns digits for arithmetic operations on huge numbers.</p></div>
+        <div class="app-card"><div class="app-ico">🧬</div><h4>DNA Processing</h4><p>Bioinformatics processes complement strands — often the reverse of the original DNA sequence.</p></div>
+        <div class="app-card"><div class="app-ico">🗂️</div><h4>Stack Reversal</h4><p>A stack is a linked list under the hood. Reversing it flips the LIFO order — used in schedulers.</p></div>
+        <div class="app-card"><div class="app-ico">🎮</div><h4>Game Replays</h4><p>Move histories stored as linked lists — reversal enables "watch your game in reverse" features.</p></div>
+      </div>
+    </div>
+
+    <!-- PAGE 4: QUIZ -->
+    <div class="pane" id="pane-4" style="padding:28px 32px 60px">
+      <div class="sec-label">05 — Test Your Knowledge</div>
+      <div class="sec-title">Quick Quiz 🎯</div>
+      <p class="sec-sub">5 questions to cement your understanding. Each one builds on what you've learned.</p>
+
+      <div class="quiz-container">
+        <div class="quiz-hud">
           <div class="qhud-score">Score: <span id="qscore-display">0</span></div>
-          <div class="qhud-set-badge" id="qhud-set-badge" style="background:rgba(0,229,160,0.12);color:#00e5a0">SET 1 — BEGINNER</div>
+          <div class="qhud-progress" id="qhud-dots"></div>
         </div>
-        <div class="qhud-progress" id="qhud-dots"></div>
-      </div>
 
-      <div class="quiz-card" id="quiz-card">
-        <div class="q-num" id="q-num">QUESTION 1 / 5</div>
-        <div class="q-text" id="q-text"></div>
-        <div class="q-opts" id="q-opts"></div>
-        <div class="q-feedback" id="q-feedback"></div>
-        <button class="q-next" id="q-next-btn" onclick="quizNext()">Next Question →</button>
-      </div>
+        <div class="quiz-card" id="quiz-card">
+          <div class="q-num" id="q-num">QUESTION 1 / 5</div>
+          <div class="q-text" id="q-text"></div>
+          <div class="q-opts" id="q-opts"></div>
+          <div class="q-feedback" id="q-feedback"></div>
+          <button class="q-next" id="q-next-btn" onclick="quizNext()">Next question →</button>
+        </div>
 
-      <!-- Set Complete Screen -->
-      <div class="set-complete" id="set-complete">
-        <div class="sc-trophy" id="sc-trophy">🏆</div>
-        <div class="sc-title" id="sc-title">Set Complete!</div>
-        <div class="sc-score" id="sc-score">5/5</div>
-        <div class="sc-sub" id="sc-sub">Amazing work!</div>
-        <div class="stars-row" id="sc-stars">
-          <span class="star-display" id="scstar0">⭐</span>
-          <span class="star-display" id="scstar1">⭐</span>
-          <span class="star-display" id="scstar2">⭐</span>
-          <span class="star-display" id="scstar3">⭐</span>
-          <span class="star-display" id="scstar4">⭐</span>
-        </div>
-        <div class="sc-actions">
-          <button class="sc-btn sc-btn-primary" id="sc-next-btn" onclick="scNextAction()" style="display:none">Unlock Next Set 🔓</button>
-          <button class="sc-btn sc-btn-sec" onclick="scRetryAction()">↺ Retry This Set</button>
-          <button class="sc-btn sc-btn-sec" id="sc-goto-next-btn" onclick="scGotoNextSet()" style="display:none">Go to Next Set →</button>
-        </div>
-        <div class="abar-wrap">
-          <div class="abar-title">Performance Breakdown</div>
-          <div id="sc-abar"></div>
+       <div class="score-screen" id="score-screen">
+          <div class="score-trophy" id="score-trophy">🏆</div>
+          <div class="score-num" id="score-num">0/5</div>
+          <div class="score-label">Questions Correct</div>
+          <div class="analysis-bar" id="analysis-bar"></div>
+          <div class="stars-row" id="stars-row">
+            <span class="star-display" id="star0">⭐</span>
+            <span class="star-display" id="star1">⭐</span>
+            <span class="star-display" id="star2">⭐</span>
+            <span class="star-display" id="star3">⭐</span>
+            <span class="star-display" id="star4">⭐</span>
+          </div>
+          <button class="restart-btn" onclick="restartQuiz()">Play Again ↺</button>
         </div>
       </div>
     </div>
-  </div>
 
   </div><!-- page-content -->
 </div><!-- main -->
 </div><!-- app -->
 
 <script>
-// ══════ SOUND ══════
+// ══════════════════════════════════════════
+// SOUND ENGINE (Web Audio API — no files needed!)
+// ══════════════════════════════════════════
 const AC = window.AudioContext ? new AudioContext() : null;
-function playTone(freq,type='sine',dur=0.15,vol=0.25,delay=0){
-  if(!AC) return;
-  try{
-    const o=AC.createOscillator(),g=AC.createGain();
-    o.connect(g);g.connect(AC.destination);
-    o.type=type;o.frequency.setValueAtTime(freq,AC.currentTime+delay);
-    o.frequency.exponentialRampToValueAtTime(freq*0.8,AC.currentTime+delay+dur);
-    g.gain.setValueAtTime(vol,AC.currentTime+delay);
-    g.gain.exponentialRampToValueAtTime(0.001,AC.currentTime+delay+dur);
-    o.start(AC.currentTime+delay);o.stop(AC.currentTime+delay+dur+0.05);
-  }catch(e){}
+let soundOn = true;
+
+function playTone(freq, type='sine', dur=0.15, vol=0.25, delay=0) {
+  if(!AC || !soundOn) return;
+  try {
+    const osc = AC.createOscillator();
+    const gain = AC.createGain();
+    osc.connect(gain); gain.connect(AC.destination);
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, AC.currentTime + delay);
+    osc.frequency.exponentialRampToValueAtTime(freq * 0.8, AC.currentTime + delay + dur);
+    gain.gain.setValueAtTime(vol, AC.currentTime + delay);
+    gain.gain.exponentialRampToValueAtTime(0.001, AC.currentTime + delay + dur);
+    osc.start(AC.currentTime + delay);
+    osc.stop(AC.currentTime + delay + dur + 0.05);
+  } catch(e){}
 }
-function sndClick(){playTone(440,'sine',0.08,0.12)}
-function sndStep(){playTone(520,'sine',0.12,0.13)}
-function sndFlip(){playTone(660,'triangle',0.18,0.18);playTone(880,'sine',0.1,0.08,0.09)}
-function sndDone(){[523,659,784,1047].forEach((f,i)=>playTone(f,'sine',0.28,0.18,i*0.1))}
-function sndCorrect(){[659,784,1047].forEach((f,i)=>playTone(f,'sine',0.22,0.22,i*0.07))}
-function sndWrong(){playTone(200,'sawtooth',0.25,0.18);playTone(160,'sawtooth',0.18,0.12,0.12)}
-function sndBuild(){[330,440,550,660].forEach((f,i)=>playTone(f,'triangle',0.12,0.15,i*0.05))}
-function sndStar(){playTone(880,'sine',0.25,0.28);playTone(1100,'sine',0.2,0.22,0.12)}
-function sndUnlock(){[440,550,660,880].forEach((f,i)=>playTone(f,'sine',0.3,0.2,i*0.08))}
-function sndPopper(){
-  if(!AC) return;
-  try{
+function sndClick()  { playTone(440,'sine',0.08,0.12); }
+function sndStep()   { playTone(520,'sine',0.12,0.13); }
+function sndFlip()   { playTone(660,'triangle',0.18,0.18); playTone(880,'sine',0.1,0.08,0.09); }
+function sndDone()   { [523,659,784,1047].forEach((f,i)=>playTone(f,'sine',0.28,0.18,i*0.1)); }
+function sndCorrect(){ [659,784,1047].forEach((f,i)=>playTone(f,'sine',0.22,0.22,i*0.07)); }
+function sndWrong()  { playTone(200,'sawtooth',0.25,0.18); playTone(160,'sawtooth',0.18,0.12,0.12); }
+function sndBuild()  { [330,440,550,660].forEach((f,i)=>playTone(f,'triangle',0.12,0.15,i*0.05)); }
+function sndStar()   { playTone(880,'sine',0.25,0.28); playTone(1100,'sine',0.2,0.22,0.12); }
+function sndPopper() {
+  // party popper POP sound — sharp noise burst + rising chime
+  if(!AC||!soundOn) return;
+  try {
     const buf=AC.createBuffer(1,AC.sampleRate*0.15,AC.sampleRate);
     const d=buf.getChannelData(0);
     for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
-    const src=AC.createBufferSource();src.buffer=buf;
-    const g=AC.createGain();g.gain.setValueAtTime(0.6,AC.currentTime);g.gain.exponentialRampToValueAtTime(0.001,AC.currentTime+0.15);
-    src.connect(g);g.connect(AC.destination);src.start();
-  }catch(e){}
+    const src=AC.createBufferSource(); src.buffer=buf;
+    const g=AC.createGain(); g.gain.setValueAtTime(0.6,AC.currentTime); g.gain.exponentialRampToValueAtTime(0.001,AC.currentTime+0.15);
+    src.connect(g); g.connect(AC.destination); src.start();
+  } catch(e){}
   [880,1100,1320,1760].forEach((f,i)=>playTone(f,'sine',0.4,0.25,0.05+i*0.06));
 }
-document.addEventListener('click',()=>{if(AC&&AC.state==='suspended')AC.resume()},{once:true});
 
-// ══════ STARS ══════
-(function(){
-  const c=document.getElementById('stars');
-  for(let i=0;i<80;i++){
-    const s=document.createElement('div');s.className='star';
-    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;--op:${0.2+Math.random()*0.5}`;
-    c.appendChild(s);
+// Resume AudioContext on first user interaction
+document.addEventListener('click', () => { if(AC && AC.state === 'suspended') AC.resume(); }, {once:true});
+
+// ══════════════════════════════════════════
+// STARS BACKGROUND
+// ══════════════════════════════════════════
+(function createStars(){
+  const container = document.getElementById('stars');
+  for(let i=0; i<80; i++){
+    const s = document.createElement('div'); s.className='star';
+    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:${Math.random()*5}s;--op:${0.2+Math.random()*0.5}`;
+    container.appendChild(s);
   }
 })();
 
-// ══════ STATIC LISTS ══════
-const COLORS=['c0','c1','c2','c3','c4'];
-function buildStaticList(id,vals,rev){
-  const el=document.getElementById(id);if(!el)return;el.innerHTML='';
-  const arr=rev?[...vals].reverse():vals;
+// ══════════════════════════════════════════
+// STATIC INTRO LISTS
+// ══════════════════════════════════════════
+const colors = ['c0','c1','c2','c3','c4'];
+function buildStaticList(containerId, vals, reversed){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML = '';
+  const arr = reversed ? [...vals].reverse() : vals;
   arr.forEach((v,i)=>{
-    const isLast=i===arr.length-1,cn=COLORS[i%COLORS.length];
-    const wrap=document.createElement('div');wrap.className='sn';
-    const box=document.createElement('div');box.className=`sbox ${cn}`;
-    box.innerHTML=`<div class="sval">${v}</div><div class="sptr">${isLast?'→ null':'→ next'}</div>`;
+    const isLast = i === arr.length-1;
+    const cn = colors[i % colors.length];
+    const wrap = document.createElement('div'); wrap.className='sn';
+    const box = document.createElement('div'); box.className=`sbox ${cn}`;
+    box.innerHTML = `<div class="sval">${v}</div><div class="sptr">${isLast?'→ null':'→ next'}</div>`;
     wrap.appendChild(box);
-    const arr2=document.createElement('div');arr2.className='sarr';
-    if(!isLast) arr2.innerHTML=`<svg width="42" height="18"><line x1="2" y1="9" x2="34" y2="9" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/><polygon points="29,4 40,9 29,14" fill="rgba(255,255,255,0.25)"/></svg>`;
-    else arr2.innerHTML=`<svg width="32" height="18"><line x1="2" y1="9" x2="24" y2="9" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="3 3"/></svg>`;
-    wrap.appendChild(arr2);
-    if(isLast){const n=document.createElement('div');n.className='snull';n.textContent='null';wrap.appendChild(n);}
+    if(!isLast){
+      const arr2 = document.createElement('div'); arr2.className='sarr';
+      arr2.innerHTML = `<svg width="42" height="18"><line x1="2" y1="9" x2="34" y2="9" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/><polygon points="29,4 40,9 29,14" fill="rgba(255,255,255,0.25)"/></svg>`;
+      wrap.appendChild(arr2);
+    } else {
+      const arr3 = document.createElement('div'); arr3.className='sarr';
+      arr3.innerHTML = `<svg width="32" height="18"><line x1="2" y1="9" x2="24" y2="9" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="3 3"/></svg>`;
+      wrap.appendChild(arr3);
+      const nullEl = document.createElement('div'); nullEl.className='snull'; nullEl.textContent='null';
+      wrap.appendChild(nullEl);
+    }
     el.appendChild(wrap);
   });
 }
-buildStaticList('intro-list-orig',['1','2','3','4','5'],false);
-buildStaticList('intro-list-rev',['1','2','3','4','5'],true);
+buildStaticList('intro-list-orig', ['1','2','3','4','5'], false);
+buildStaticList('intro-list-rev',  ['1','2','3','4','5'], true);
 
-// ══════ NAV ══════
-let currentPage=0;
-const pageTitles=[
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+let currentPage = 0;
+const pageTitles = [
   'Introduction — <span>What is a Linked List?</span>',
   'Algorithm — <span>How Does it Work?</span>',
   'Live Visualizer — <span>Step-by-Step</span>',
   'Analysis — <span>Time & Space Complexity</span>',
-  'Quiz — <span>3 Sets · 15 Questions</span>'
+  'Quiz — <span>Test Your Knowledge</span>'
 ];
-function goPage(idx,navEl){
-  document.querySelectorAll('.pane').forEach((p,i)=>p.classList.toggle('active',i===idx));
+
+function goPage(idx, navEl){
+  document.querySelectorAll('.pane').forEach((p,i)=>p.classList.toggle('active', i===idx));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   navEl.classList.add('active');
-  currentPage=idx;
-  document.getElementById('topbar-title').innerHTML=pageTitles[idx];
-  document.getElementById('global-prog').style.width=((idx+1)/5*100)+'%';
-  document.getElementById('global-pct').textContent=`Page ${idx+1} of 5`;
+  currentPage = idx;
+  document.getElementById('topbar-title').innerHTML = pageTitles[idx];
+  document.getElementById('global-prog').style.width = ((idx+1)/5*100)+'%';
+  document.getElementById('global-pct').textContent = `Page ${idx+1} of 5`;
   sndClick();
 }
-function nextPage(){if(currentPage<4)goPage(currentPage+1,document.getElementById('nav'+(currentPage+1)))}
-function prevPage(){if(currentPage>0)goPage(currentPage-1,document.getElementById('nav'+(currentPage-1)))}
-
-// ══════ TOAST ══════
-let toastTimer;
-function showToast(msg,color='var(--text)'){
-  const t=document.getElementById('toast');t.textContent=msg;t.style.color=color;
-  t.classList.add('show');clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove('show'),2600);
+function nextPage(){
+  if(currentPage < 4) goPage(currentPage+1, document.getElementById('nav'+(currentPage+1)));
+}
+function prevPage(){
+  if(currentPage > 0) goPage(currentPage-1, document.getElementById('nav'+(currentPage-1)));
 }
 
-// ══════ PARTICLES ══════
-function spawnParticles(x,y){
-  const em=['🎉','⭐','✨','💫','🚀','🎯','🔗','🏆'];
-  for(let i=0;i<7;i++){
-    const p=document.createElement('div');p.className='particle';
-    p.textContent=em[Math.floor(Math.random()*em.length)];
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+let toastTimer;
+function showToast(msg, color='var(--text)'){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.color = color;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+// ══════════════════════════════════════════
+// PARTICLES
+// ══════════════════════════════════════════
+function spawnParticles(x, y){
+  const emojis=['🎉','⭐','✨','💫','🚀','🎯','🔗','🏆'];
+  for(let i=0;i<6;i++){
+    const p=document.createElement('div'); p.className='particle';
+    p.textContent=emojis[Math.floor(Math.random()*emojis.length)];
     p.style.cssText=`left:${x-20+Math.random()*40}px;top:${y}px;animation-delay:${Math.random()*0.25}s;animation-duration:${1.5+Math.random()}s;font-size:${14+Math.random()*14}px`;
-    document.body.appendChild(p);setTimeout(()=>p.remove(),2500);
+    document.body.appendChild(p); setTimeout(()=>p.remove(),2500);
   }
 }
 function launchConfetti(){
-  const cols=['#ff4d2e','#fbbf24','#00e5a0','#a78bfa','#22d3ee','#f472b6','#fff'];
+  const colors=['#ff4d2e','#fbbf24','#00e5a0','#a78bfa','#22d3ee','#f472b6','#fff'];
   for(let i=0;i<120;i++){
-    const c=document.createElement('div');c.className='confetti-piece';
-    const col=cols[Math.floor(Math.random()*cols.length)];
-    const sx=Math.random()*window.innerWidth,drift=(Math.random()-0.5)*400,dur=2+Math.random()*2;
-    c.style.cssText=`left:${sx}px;top:-20px;background:${col};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};--dur:${dur}s;animation-delay:${Math.random()*0.8}s;transform:translateX(${drift}px)`;
-    document.body.appendChild(c);setTimeout(()=>c.remove(),(dur+1)*1000);
+    const c=document.createElement('div'); c.className='confetti-piece';
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    const startX=Math.random()*window.innerWidth;
+    const drift=(Math.random()-0.5)*400;
+    const dur=2+Math.random()*2;
+    c.style.cssText=`left:${startX}px;top:-20px;background:${color};width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>0.5?'50%':'2px'};--dur:${dur}s;animation-delay:${Math.random()*0.8}s;transform:translateX(${drift}px)`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),(dur+1)*1000);
   }
   sndPopper();
 }
+function showGiftOverlay(score){
+  // Remove existing
+  const old=document.getElementById('gift-overlay-el'); if(old) old.remove();
+  const data=getGiftData(score);
+  const ov=document.createElement('div'); ov.className='gift-overlay'; ov.id='gift-overlay-el';
+  ov.innerHTML=`
+    <div class="gift-box">
+      <span class="gift-emoji">${data.emoji}</span>
+      <div class="gift-title">${data.title}</div>
+      <div class="gift-subtitle">${data.subtitle}</div>
+      <div class="gift-badge" style="background:${data.badgeBg};color:${data.badgeColor}">${data.badge}</div>
+      ${data.topics.length?`<div class="gift-topics"><h4>📚 Topics to review again</h4>${data.topics.map(t=>`<div class="gift-topic-item"><span>${t.icon}</span><span>${t.text}</span></div>`).join('')}</div>`:''}
+      <div class="gift-topics" style="margin-top:10px">
+        <h4>🧠 Your performance</h4>
+        <div id="gift-abar"></div>
+      </div>
+      <button class="gift-close" style="background:${data.btnBg};color:${data.btnColor}" onclick="document.getElementById('gift-overlay-el').remove()">
+        ${data.btnText}
+      </button>
+    </div>`;
+  document.body.appendChild(ov);
+  // Animate analysis bars
+  setTimeout(()=>{
+    const categories=[
+      {label:'Pointer logic',pct:score>=3?Math.min(100,score*18+10):score*15,color:'#a78bfa'},
+      {label:'Complexity',pct:score>=4?95:score>=2?60:25,color:'#22d3ee'},
+      {label:'Step order',pct:score>=2?Math.min(100,score*17+5):score*12,color:'#00e5a0'},
+      {label:'Overall',pct:Math.round(score/5*100),color:'#fbbf24'},
+    ];
+    const container=document.getElementById('gift-abar');
+    if(!container) return;
+    container.innerHTML=categories.map(c=>`
+      <div class="abar-row">
+        <div class="abar-label">${c.label}</div>
+        <div class="abar-track"><div class="abar-fill" style="background:${c.color}" data-pct="${c.pct}"></div></div>
+        <div class="abar-pct">${c.pct}%</div>
+      </div>`).join('');
+    setTimeout(()=>{ container.querySelectorAll('.abar-fill').forEach(b=>b.style.width=b.dataset.pct+'%'); },100);
+  },300);
+  ov.addEventListener('click',e=>{ if(e.target===ov) ov.remove(); });
+}
+function getGiftData(score){
+  if(score===5) return {
+    emoji:'🏆',title:'PERFECT SCORE!',
+    subtitle:'You are an absolute master of Linked List Reversal. Outstanding work!',
+    badge:'⭐ Genius Level Achieved ⭐',badgeBg:'rgba(251,191,36,0.2)',badgeColor:'#fbbf24',
+    topics:[],btnText:'Claim Your Trophy 🎉',btnBg:'linear-gradient(135deg,#fbbf24,#ff4d2e)',btnColor:'#fff',
+  };
+  if(score===4) return {
+    emoji:'🥇',title:'Almost Perfect!',
+    subtitle:'Just one slip — you clearly understand this concept really well. One more review and you\'ll nail it!',
+    badge:'🔥 Expert Level',badgeBg:'rgba(255,77,46,0.2)',badgeColor:'#ff4d2e',
+    topics:[{icon:'💾',text:'Review: why we save next BEFORE flipping'},{icon:'↩️',text:'Practice: tracing through 3-4 node lists by hand'}],
+    btnText:'Try Again for Perfect! 💪',btnBg:'linear-gradient(135deg,#ff4d2e,#fbbf24)',btnColor:'#fff',
+  };
+  if(score===3) return {
+    emoji:'🥈',title:'Good Job!',
+    subtitle:'Solid foundation — go back to the Visualizer and step through a few more examples to lock it in.',
+    badge:'👍 Intermediate Level',badgeBg:'rgba(0,229,160,0.2)',badgeColor:'#00e5a0',
+    topics:[{icon:'🔄',text:'Review: the full 4-step loop order'},{icon:'📍',text:'Review: what prev/curr/next each represent'},{icon:'🏁',text:'Review: why we return prev (not curr) at the end'}],
+    btnText:'Go Practice More! 🚀',btnBg:'linear-gradient(135deg,#00e5a0,#22d3ee)',btnColor:'#0c0d1a',
+  };
+  if(score===2) return {
+    emoji:'🥉',title:'Keep Going!',
+    subtitle:'You got the basics. Spend 5 minutes in the Visualizer — click through every step and read the explanation panel.',
+    badge:'📖 Learning Level',badgeBg:'rgba(167,139,250,0.2)',badgeColor:'#a78bfa',
+    topics:[{icon:'📍',text:'Review: what the 3 pointers do (prev, curr, next)'},{icon:'💾',text:'Review: why saving next first is CRITICAL'},{icon:'↩️',text:'Review: flipping the arrow (curr.next = prev)'},{icon:'🔄',text:'Review: step order — save → flip → move prev → move curr'}],
+    btnText:'Go Study the Visualizer! 📚',btnBg:'linear-gradient(135deg,#a78bfa,#22d3ee)',btnColor:'#fff',
+  };
+  return {
+    emoji:'💡',title:'Just Getting Started',
+    subtitle:'No worries! Every expert was once a beginner. Read the Algorithm page first, then watch the full Auto Play in the Visualizer.',
+    badge:'🌱 Beginner Level',badgeBg:'rgba(34,211,238,0.2)',badgeColor:'#22d3ee',
+    topics:[{icon:'📖',text:'Start: read "How Does it Work?" page fully'},{icon:'▶️',text:'Then: open Visualizer → Auto Play → watch every step'},{icon:'🔁',text:'Then: try stepping manually with Next →'},{icon:'✏️',text:'Finally: trace on paper — write prev/curr/next each step'}],
+    btnText:'Start Learning! 💪',btnBg:'linear-gradient(135deg,#22d3ee,#a78bfa)',btnColor:'#fff',
+  };
+}
 
-// ══════ VISUALIZER ══════
-let vizNodes=[],vizSteps=[],vizIdx=-1,autoTimer=null,isAuto=false,autoDelay=1000;
+// ══════════════════════════════════════════
+// VISUALIZER ENGINE
+// ══════════════════════════════════════════
+let vizNodes = [], vizSteps = [], vizIdx = -1;
+let autoTimer = null, isAuto = false, autoDelay = 1000;
 
 function updateSpeed(v){
-  autoDelay=parseInt(v);
-  const lvls=[[200,'Very Fast'],[600,'Fast'],[1000,'Medium'],[1600,'Slow'],[2500,'Very Slow']];
-  let best='Medium',minD=Infinity;
-  lvls.forEach(([k,l])=>{const d=Math.abs(k-autoDelay);if(d<minD){minD=d;best=l;}});
-  document.getElementById('speed-lbl').textContent=best;
-  if(isAuto){clearInterval(autoTimer);autoTimer=setInterval(stepNext,autoDelay);}
+  autoDelay = parseInt(v);
+  const levels = [[200,'Very Fast'],[600,'Fast'],[1000,'Medium'],[1600,'Slow'],[2500,'Very Slow']];
+  let best = 'Medium', minD = Infinity;
+  levels.forEach(([k,l])=>{ const d=Math.abs(k-autoDelay); if(d<minD){minD=d;best=l;} });
+  document.getElementById('speed-lbl').textContent = best;
+  if(isAuto){ clearInterval(autoTimer); autoTimer=setInterval(stepNext,autoDelay); }
 }
+
 function getVizInput(){
-  return document.getElementById('vi-input').value.split(',').map(s=>s.trim()).filter(s=>s.length>0).slice(0,10);
+  const raw = document.getElementById('vi-input').value;
+  return raw.split(',').map(s=>s.trim()).filter(s=>s.length>0).slice(0,10);
 }
+
 function buildVisualization(){
   stopAuto();
-  const vals=getVizInput();
-  if(vals.length<2){showToast('⚠️ Enter at least 2 values!','#ff4d2e');return;}
-  vizNodes=vals.map((v,i)=>({val:v,id:i}));
-  vizSteps=generateSteps(vals);vizIdx=-1;
+  const vals = getVizInput();
+  if(vals.length < 2){ showToast('⚠️ Enter at least 2 values!','#ff4d2e'); return; }
+  if(vals.length > 9){ showToast('Max 9 nodes for best display','var(--gold)'); }
+  vizNodes = vals.map((v,i)=>({val:v,id:i}));
+  vizSteps = generateSteps(vals);
+  vizIdx = -1;
+
+  // Reset UI
   document.getElementById('rev-section').style.display='none';
   document.getElementById('success-banner').classList.remove('show');
-  updateMemCards(-1,-1,-1,vals);renderOrigNodes(-1,-1,-1,[]);
-  buildProgDots(vizSteps.length);updateProgUI(0,vizSteps.length);setExpPanel(-1);
+  document.getElementById('explainer').style.borderColor='';
+  updateMemCards(-1,-1,-1, vals);
+  renderOrigNodes(-1,-1,-1,[]);
+  buildProgDots(vizSteps.length);
+  updateProgUI(0, vizSteps.length);
+  setExpPanel(-1);
   setBtns({prev:true,next:false,auto:false,reset:false});
-  sndBuild();showToast(`✅ Built: ${vals.join(' → ')} → null`,'var(--prev)');
-  document.getElementById('inp-hint').textContent=`✓ ${vals.length} nodes. Click Next → or Auto Play!`;
+  sndBuild();
+  showToast(`✅ Built list: ${vals.join(' → ')} → null`, 'var(--prev)');
+  document.getElementById('inp-hint').textContent = `✓ Your list has ${vals.length} nodes. Click Next → or Auto Play to start!`;
 }
+
 function generateSteps(vals){
-  const n=vals.length,steps=[];
+  const n = vals.length, steps = [];
+  // Step 0: init
   steps.push({type:'init',prevI:-1,currI:0,nxtI:-1,rev:[],
-    msg:`<strong>Initialize:</strong> <strong style="color:var(--prev)">prev = None</strong>, <strong style="color:var(--curr)">curr = head</strong> = "${vals[0]}", <strong style="color:var(--nxt)">next = None</strong>. Start at the first node with nothing behind us.`,
-    code:'prev = None   |   curr = head   |   next = None',badge:'init',badgeColor:'var(--curr)'});
-  const rev=[];
-  for(let i=0;i<n;i++){
-    const ni=i<n-1?i+1:-1;
+    msg:`<strong>Initialize:</strong> Set <strong style="color:var(--prev)">prev = None</strong>, <strong style="color:var(--curr)">curr = head</strong> (which is "${vals[0]}"), and <strong style="color:var(--nxt)">next = None</strong>. We begin at the first node with nothing behind us yet.`,
+    code:'prev = None   |   curr = head   |   next = None', badge:'init', badgeColor:'var(--curr)'});
+  const rev = [];
+  for(let i=0; i<n; i++){
+    const ni = i<n-1 ? i+1 : -1;
     steps.push({type:'save',prevI:i-1,currI:i,nxtI:ni,rev:[...rev],
-      msg:`<strong style="color:var(--nxt)">💾 Save next = curr.next</strong> → ${ni>=0?`"<strong>${vals[ni]}</strong>"`:'<em>None</em>'}. MUST save before flipping — or we lose the rest of the list!`,
-      code:`next = curr.next   →   ${ni>=0?'"'+vals[ni]+'"':'None'}`,badge:'save next',badgeColor:'var(--nxt)'});
+      msg:`<strong style="color:var(--nxt)">💾 Save next = curr.next</strong> → ${ni>=0?`"<strong>${vals[ni]}</strong>"` :'<em>None</em> (end of list)'}. We MUST save this before flipping — if we don't, we'll lose the rest of the list forever!`,
+      code:`next = curr.next   →   ${ni>=0?'"'+vals[ni]+'"':'None'}`, badge:'save next', badgeColor:'var(--nxt)'});
     steps.push({type:'flip',prevI:i-1,currI:i,nxtI:ni,rev:[...rev],
-      msg:`<strong style="color:var(--curr)">↩️ Flip: curr.next = prev</strong>. Node "${vals[i]}" now points ${i>0?`back to "${vals[i-1]}"`:'to <em>None</em> — becomes the new tail'}. Arrow reversed!`,
-      code:`curr.next = prev   →   "${vals[i]}" → ${i>0?'"'+vals[i-1]+'"':'None'}`,badge:'flip ↩',badgeColor:'var(--curr)'});
+      msg:`<strong style="color:var(--curr)">↩️ Flip the arrow: curr.next = prev</strong>. Node "<strong>${vals[i]}</strong>" now points ${i>0?`back to "<strong>${vals[i-1]}</strong>"`:'to <em>None</em> — it becomes the new tail'}. The arrow has been reversed!`,
+      code:`curr.next = prev   →   "${vals[i]}" now points to ${i>0?'"'+vals[i-1]+'"':'None'}`, badge:'flip ↩', badgeColor:'var(--curr)'});
     steps.push({type:'movePrev',prevI:i,currI:i,nxtI:ni,rev:[...rev],
-      msg:`<strong style="color:var(--prev)">Advance prev = curr</strong>. prev moves to "${vals[i]}" — front of the growing reversed chain.`,
-      code:`prev = curr   →   prev = "${vals[i]}"`,badge:'move prev',badgeColor:'var(--prev)'});
+      msg:`<strong style="color:var(--prev)">Advance prev = curr</strong>. The prev pointer moves to "<strong>${vals[i]}</strong>". It now marks the front of our growing reversed chain.`,
+      code:`prev = curr   →   prev is now "${vals[i]}"`, badge:'move prev', badgeColor:'var(--prev)'});
     rev.push(i);
-    if(ni>=0){
+    if(ni >= 0){
       steps.push({type:'moveCurr',prevI:i,currI:ni,nxtI:-1,rev:[...rev],
-        msg:`<strong style="color:var(--curr)">Advance curr = next</strong>. curr steps to "${vals[ni]}". Loop continues...`,
-        code:`curr = next   →   curr = "${vals[ni]}"`,badge:'move curr',badgeColor:'var(--curr)'});
-    }else{
+        msg:`<strong style="color:var(--curr)">Advance curr = next</strong>. curr moves to "<strong>${vals[ni]}</strong>". We advance to the next node. Loop continues...`,
+        code:`curr = next   →   curr is now "${vals[ni]}"`, badge:'move curr', badgeColor:'var(--curr)'});
+    } else {
       steps.push({type:'done',prevI:i,currI:-1,nxtI:-1,rev:[...rev],
-        msg:`<strong style="color:var(--done)">🏁 Done! curr is None.</strong> <strong style="color:var(--done)">prev = "${vals[i]}"</strong> is the new head. Reversed in ${n} nodes!`,
-        code:`return prev   →   new head = "${vals[i]}"`,badge:'✓ done!',badgeColor:'var(--done)'});
+        msg:`<strong style="color:var(--done)">🏁 Done! curr is None</strong> — we've visited every node. <strong style="color:var(--done)">prev = "${vals[i]}"</strong> is the new head. The list has been successfully reversed in <strong>${n}</strong> nodes!`,
+        code:`return prev   →   new head = "${vals[i]}"`, badge:'✓ done!', badgeColor:'var(--done)'});
     }
   }
   return steps;
 }
+
 function applyStep(idx){
-  const s=vizSteps[idx],isDone=s.type==='done';
-  renderOrigNodes(s.prevI,isDone?-1:s.currI,s.nxtI,s.rev);
+  const s = vizSteps[idx];
+  const isDone = s.type === 'done';
+  renderOrigNodes(s.prevI, isDone?-1:s.currI, s.nxtI, s.rev);
   renderRevNodes(s.rev);
-  updateMemCards(s.prevI,isDone?-1:s.currI,s.nxtI,vizNodes.map(n=>n.val));
-  updateProgUI(idx+1,vizSteps.length);setExpPanel(idx);
-  if(s.type==='save')sndStep();
-  else if(s.type==='flip')sndFlip();
-  else if(s.type==='movePrev'||s.type==='moveCurr')sndStep();
-  else if(s.type==='done'){sndDone();spawnParticles(window.innerWidth/2,window.innerHeight/2);}
+  updateMemCards(s.prevI, isDone?-1:s.currI, s.nxtI, vizNodes.map(n=>n.val));
+  updateProgUI(idx+1, vizSteps.length);
+  setExpPanel(idx);
+
+  // Sounds
+  if(s.type==='save') sndStep();
+  else if(s.type==='flip') sndFlip();
+  else if(s.type==='movePrev'||s.type==='moveCurr') sndStep();
+  else if(s.type==='done'){ sndDone(); spawnParticles(window.innerWidth/2, window.innerHeight/2); }
   else sndStep();
-  if(!isDone&&s.currI>=0){
-    const box=document.getElementById('vbox-'+s.currI);
-    if(box){box.classList.remove('pop-anim');void box.offsetWidth;box.classList.add('pop-anim');}
+
+  // Pop animation
+  if(!isDone && s.currI >= 0){
+    const box = document.getElementById('vbox-'+s.currI);
+    if(box){ box.classList.remove('pop-anim'); void box.offsetWidth; box.classList.add('pop-anim'); }
   }
-  if(s.type==='flip'&&s.currI>=0){
-    const box=document.getElementById('vbox-'+s.currI);
-    if(box){box.classList.add('flip-anim');setTimeout(()=>box.classList.remove('flip-anim'),600);}
+  if(s.type==='flip' && s.currI >= 0){
+    const box = document.getElementById('vbox-'+s.currI);
+    if(box){ box.classList.add('flip-anim'); setTimeout(()=>box.classList.remove('flip-anim'),600); }
   }
-  setBtns({prev:idx===0,next:isDone,auto:isDone,reset:false});
+
+  setBtns({prev:idx===0, next:isDone, auto:isDone, reset:false});
+
   if(isDone){
     document.getElementById('success-banner').classList.add('show');
-    document.getElementById('sb-text').textContent=`Reversed: ${vizNodes.map(n=>n.val).reverse().join(' → ')} → null`;
-    document.getElementById('sb-sub').textContent=`Done in ${vizNodes.length} nodes, ${vizSteps.length} micro-steps.`;
-    document.getElementById('rev-arena-label').textContent='✅ Reversed list (complete!)';
-    stopAuto();showToast('🎉 Reversal complete!','var(--prev)');
+    document.getElementById('sb-text').textContent = `Reversed: ${vizNodes.map(n=>n.val).reverse().join(' → ')} → null`;
+    document.getElementById('sb-sub').textContent = `Completed in ${vizNodes.length} nodes, ${vizSteps.length} micro-steps.`;
+    document.getElementById('rev-arena-label').textContent = '✅ Reversed list (complete!)';
+    stopAuto();
+    showToast('🎉 Reversal complete!','var(--prev)');
   }
 }
+
 function renderOrigNodes(pI,cI,nI,revSet){
-  const track=document.getElementById('node-track'),labels=document.getElementById('ptr-label-row');
-  track.innerHTML='';labels.innerHTML='';
+  const track = document.getElementById('node-track');
+  const labels = document.getElementById('ptr-label-row');
+  track.innerHTML = ''; labels.innerHTML = '';
+
   vizNodes.forEach((nd,i)=>{
-    const isLast=i===vizNodes.length-1;
-    const lc=document.createElement('div');lc.className='ptr-label-cell';
-    const pills=[];
-    if(pI===i)pills.push(`<span class="ptr-pill pp-p">prev</span>`);
-    if(cI===i)pills.push(`<span class="ptr-pill pp-c">curr</span>`);
-    if(nI===i)pills.push(`<span class="ptr-pill pp-n">next</span>`);
-    lc.innerHTML=pills.join('');labels.appendChild(lc);
-    const sp=document.createElement('div');sp.className='ptr-spacer';labels.appendChild(sp);
-    const wrap=document.createElement('div');wrap.className='nw';
-    const box=document.createElement('div');box.className='nbox';box.id='vbox-'+i;
-    if(cI===i)box.classList.add('is-curr');
-    else if(pI===i)box.classList.add('is-prev');
-    else if(nI===i)box.classList.add('is-nxt');
-    if(revSet.includes(i))box.classList.add('is-done');
-    const valDiv=document.createElement('div');valDiv.className='nbox-val';valDiv.textContent=nd.val;
-    if(cI===i)valDiv.style.color='var(--curr)';
-    else if(pI===i)valDiv.style.color='var(--prev)';
-    else if(nI===i)valDiv.style.color='var(--nxt)';
-    else if(revSet.includes(i))valDiv.style.color='var(--done)';
-    const ptrDiv=document.createElement('div');ptrDiv.className='nbox-ptr';ptrDiv.textContent=isLast?'→ null':'→ next';
-    box.appendChild(valDiv);box.appendChild(ptrDiv);wrap.appendChild(box);
-    const aw=document.createElement('div');aw.className='narrow-arrow';
+    const isLast = i === vizNodes.length-1;
+    // Pointer label cell
+    const lc = document.createElement('div'); lc.className='ptr-label-cell';
+    const pills = [];
+    if(pI===i) pills.push(`<span class="ptr-pill pp-p">prev</span>`);
+    if(cI===i) pills.push(`<span class="ptr-pill pp-c">curr</span>`);
+    if(nI===i) pills.push(`<span class="ptr-pill pp-n">next</span>`);
+    lc.innerHTML = pills.join('');
+    labels.appendChild(lc);
+    const sp = document.createElement('div'); sp.className='ptr-spacer'; labels.appendChild(sp);
+
+    // Node
+    const wrap = document.createElement('div'); wrap.className='nw';
+    const box = document.createElement('div'); box.className='nbox'; box.id='vbox-'+i;
+    if(cI===i) box.classList.add('is-curr');
+    else if(pI===i) box.classList.add('is-prev');
+    else if(nI===i) box.classList.add('is-nxt');
+    if(revSet.includes(i)) box.classList.add('is-done');
+
+    const valDiv = document.createElement('div'); valDiv.className='nbox-val'; valDiv.textContent=nd.val;
+    if(cI===i) valDiv.style.color='var(--curr)';
+    else if(pI===i) valDiv.style.color='var(--prev)';
+    else if(nI===i) valDiv.style.color='var(--nxt)';
+    else if(revSet.includes(i)) valDiv.style.color='var(--done)';
+
+    const ptrDiv = document.createElement('div'); ptrDiv.className='nbox-ptr'; ptrDiv.textContent=isLast?'→ null':'→ next';
+    box.appendChild(valDiv); box.appendChild(ptrDiv); wrap.appendChild(box);
+
+    const arrowWrap = document.createElement('div'); arrowWrap.className='narrow-arrow';
     if(!isLast){
-      const ac=revSet.includes(i)&&revSet.includes(i+1)?'rgba(34,211,238,0.5)':'rgba(255,255,255,0.15)';
-      aw.innerHTML=`<svg width="50" height="22"><line x1="2" y1="11" x2="40" y2="11" stroke="${ac}" stroke-width="1.5"/><polygon points="35,5 48,11 35,17" fill="${ac}"/></svg>`;
-    }else{
-      aw.innerHTML=`<svg width="36" height="22"><line x1="2" y1="11" x2="28" y2="11" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="3 3"/></svg>`;
-      wrap.appendChild(aw);
-      const nNull=document.createElement('div');nNull.className='n-null';nNull.textContent='null';
-      wrap.appendChild(nNull);track.appendChild(wrap);return;
+      const aColor = revSet.includes(i)&&revSet.includes(i+1)?'rgba(34,211,238,0.5)':'rgba(255,255,255,0.15)';
+      arrowWrap.innerHTML=`<svg width="50" height="22"><line x1="2" y1="11" x2="40" y2="11" stroke="${aColor}" stroke-width="1.5"/><polygon points="35,5 48,11 35,17" fill="${aColor}"/></svg>`;
+    } else {
+      arrowWrap.innerHTML=`<svg width="36" height="22"><line x1="2" y1="11" x2="28" y2="11" stroke="rgba(255,255,255,0.1)" stroke-width="1.5" stroke-dasharray="3 3"/></svg>`;
+      wrap.appendChild(arrowWrap);
+      const nNull = document.createElement('div'); nNull.className='n-null'; nNull.textContent='null';
+      wrap.appendChild(nNull);
+      track.appendChild(wrap);
+      return;
     }
-    wrap.appendChild(aw);track.appendChild(wrap);
+    wrap.appendChild(arrowWrap);
+    track.appendChild(wrap);
   });
 }
+
 function renderRevNodes(revIndices){
-  const revSec=document.getElementById('rev-section'),track=document.getElementById('rev-track');
-  if(revIndices.length===0){revSec.style.display='none';return;}
-  revSec.style.display='block';track.innerHTML='';
+  const revSec = document.getElementById('rev-section');
+  const track = document.getElementById('rev-track');
+  if(revIndices.length===0){ revSec.style.display='none'; return; }
+  revSec.style.display='block'; track.innerHTML='';
+
   [...revIndices].reverse().forEach((ri,i)=>{
-    const nd=vizNodes[ri],isLast=i===revIndices.length-1;
-    const wrap=document.createElement('div');wrap.className='nw';
-    const box=document.createElement('div');box.className='nbox is-done';
-    if(i===0)box.style.animation='nodesPop .4s ease';
-    const valDiv=document.createElement('div');valDiv.className='nbox-val';valDiv.style.color='var(--done)';valDiv.textContent=nd.val;
-    const ptrDiv=document.createElement('div');ptrDiv.className='nbox-ptr';ptrDiv.textContent=isLast?'→ null':'→ next';
-    box.appendChild(valDiv);box.appendChild(ptrDiv);wrap.appendChild(box);
-    const aw=document.createElement('div');aw.className='narrow-arrow';
+    const nd = vizNodes[ri];
+    const isLast = i === revIndices.length-1;
+    const wrap = document.createElement('div'); wrap.className='nw';
+    const box = document.createElement('div'); box.className='nbox is-done';
+    if(i===0) box.style.animation='nodesPop .4s ease';
+    const valDiv = document.createElement('div'); valDiv.className='nbox-val'; valDiv.style.color='var(--done)'; valDiv.textContent=nd.val;
+    const ptrDiv = document.createElement('div'); ptrDiv.className='nbox-ptr'; ptrDiv.textContent=isLast?'→ null':'→ next';
+    box.appendChild(valDiv); box.appendChild(ptrDiv); wrap.appendChild(box);
+    const arrowWrap = document.createElement('div'); arrowWrap.className='narrow-arrow';
     if(!isLast){
-      aw.innerHTML=`<svg width="50" height="22"><line x1="2" y1="11" x2="40" y2="11" stroke="rgba(34,211,238,0.45)" stroke-width="1.5"/><polygon points="35,5 48,11 35,17" fill="rgba(34,211,238,0.45)"/></svg>`;
-    }else{
-      aw.innerHTML=`<svg width="36" height="22"><line x1="2" y1="11" x2="28" y2="11" stroke="rgba(34,211,238,0.25)" stroke-width="1.5" stroke-dasharray="3 3"/></svg>`;
-      wrap.appendChild(aw);
-      const nNull=document.createElement('div');nNull.className='n-null';nNull.style.borderColor='rgba(34,211,238,0.25)';nNull.style.color='var(--done)';nNull.textContent='null';
-      wrap.appendChild(nNull);track.appendChild(wrap);return;
+      arrowWrap.innerHTML=`<svg width="50" height="22"><line x1="2" y1="11" x2="40" y2="11" stroke="rgba(34,211,238,0.45)" stroke-width="1.5"/><polygon points="35,5 48,11 35,17" fill="rgba(34,211,238,0.45)"/></svg>`;
+      wrap.appendChild(arrowWrap);
+    } else {
+      arrowWrap.innerHTML=`<svg width="36" height="22"><line x1="2" y1="11" x2="28" y2="11" stroke="rgba(34,211,238,0.25)" stroke-width="1.5" stroke-dasharray="3 3"/></svg>`;
+      wrap.appendChild(arrowWrap);
+      const nNull = document.createElement('div'); nNull.className='n-null'; nNull.style.borderColor='rgba(34,211,238,0.25)'; nNull.style.color='var(--done)'; nNull.textContent='null';
+      wrap.appendChild(nNull);
     }
-    wrap.appendChild(aw);track.appendChild(wrap);
+    track.appendChild(wrap);
   });
 }
+
 function updateMemCards(pI,cI,nI,vals){
-  function setMem(id,valId,val,active){
-    const card=document.getElementById(id),valEl=document.getElementById(valId);
-    card.classList.toggle('active-mem',active);
-    const prev=valEl.textContent;
-    if(prev!==val){valEl.classList.remove('changing');void valEl.offsetWidth;valEl.classList.add('changing');}
-    valEl.textContent=val;
+  function setMem(id, valId, val, active){
+    const card = document.getElementById(id);
+    const valEl = document.getElementById(valId);
+    card.classList.toggle('active-mem', active);
+    const prev = valEl.textContent;
+    if(prev !== val){ valEl.classList.remove('changing'); void valEl.offsetWidth; valEl.classList.add('changing'); }
+    valEl.textContent = val;
   }
-  setMem('mem-prev','mem-prev-val',pI>=0?`"${vals[pI]}"`:'None',pI>=0);
-  setMem('mem-curr','mem-curr-val',cI>=0?`"${vals[cI]}"`:'None',cI>=0);
-  setMem('mem-nxt','mem-nxt-val',nI>=0?`"${vals[nI]}"`:'None',nI>=0);
+  setMem('mem-prev','mem-prev-val', pI>=0?`"${vals[pI]}"`:'None', pI>=0);
+  setMem('mem-curr','mem-curr-val', cI>=0?`"${vals[cI]}"`:'None', cI>=0);
+  setMem('mem-nxt', 'mem-nxt-val',  nI>=0?`"${vals[nI]}"`:'None', nI>=0);
 }
+
 function buildProgDots(total){
-  const c=document.getElementById('prog-dots');c.innerHTML='';
-  for(let i=0;i<total;i++){const d=document.createElement('div');d.className='prog-step-dot';d.id='pdot-'+i;c.appendChild(d);}
-}
-function updateProgUI(done,total){
+  const container = document.getElementById('prog-dots');
+  container.innerHTML = '';
   for(let i=0;i<total;i++){
-    const d=document.getElementById('pdot-'+i);if(!d)continue;
-    if(i<done-1)d.className='prog-step-dot done';
-    else if(i===done-1)d.className='prog-step-dot curr';
+    const d=document.createElement('div'); d.className='prog-step-dot'; d.id='pdot-'+i;
+    container.appendChild(d);
+  }
+}
+
+function updateProgUI(done, total){
+  for(let i=0;i<total;i++){
+    const d = document.getElementById('pdot-'+i);
+    if(!d) continue;
+    if(i<done-1) d.className='prog-step-dot done';
+    else if(i===done-1) d.className='prog-step-dot curr';
     else d.className='prog-step-dot';
   }
-  document.getElementById('prog-label-left').textContent=done===0?'Ready to start':`Step ${done} of ${total}`;
-  document.getElementById('prog-label-right').textContent=Math.round(done/total*100)+'%';
+  document.getElementById('prog-label-left').textContent = done===0?'Ready to start':`Step ${done} of ${total}`;
+  document.getElementById('prog-label-right').textContent = Math.round(done/total*100)+'%';
 }
+
 function setExpPanel(idx){
-  if(idx<0){
-    document.getElementById('exp-counter').textContent='Step 0 of 0';
-    document.getElementById('exp-badge').textContent='—';
-    document.getElementById('exp-msg').innerHTML='Enter your list above and click <strong>⚡ Build List</strong> to begin.';
-    document.getElementById('exp-code').textContent='prev = None  |  curr = head  |  next = None';return;
+  if(idx < 0){
+    document.getElementById('exp-counter').textContent = 'Step 0 of 0';
+    document.getElementById('exp-badge').textContent = '—';
+    document.getElementById('exp-msg').innerHTML = 'Enter your list above and click <strong>⚡ Build List</strong> to begin.';
+    document.getElementById('exp-code').textContent = 'prev = None  |  curr = head  |  next = None';
+    return;
   }
-  const s=vizSteps[idx];
-  document.getElementById('exp-counter').textContent=`Step ${idx+1} of ${vizSteps.length}`;
-  document.getElementById('exp-badge').textContent=s.badge;
-  document.getElementById('exp-badge').style.background=s.badgeColor+'22';
-  document.getElementById('exp-badge').style.color=s.badgeColor;
-  document.getElementById('exp-msg').innerHTML=s.msg;
-  document.getElementById('exp-code').textContent=s.code;
-  document.getElementById('exp-code').style.borderLeftColor=s.badgeColor;
+  const s = vizSteps[idx];
+  document.getElementById('exp-counter').textContent = `Step ${idx+1} of ${vizSteps.length}`;
+  document.getElementById('exp-badge').textContent = s.badge;
+  document.getElementById('exp-badge').style.background = s.badgeColor.replace('var','').replace(/[()]/g,'').trim() + '22';
+  document.getElementById('exp-badge').style.color = s.badgeColor;
+  document.getElementById('exp-msg').innerHTML = s.msg;
+  document.getElementById('exp-code').textContent = s.code;
+  document.getElementById('exp-code').style.borderLeftColor = s.badgeColor;
 }
+
 function setBtns({prev,next,auto,reset}){
-  document.getElementById('cb-prev').disabled=prev;
-  document.getElementById('cb-next').disabled=next;
-  document.getElementById('cb-auto').disabled=auto;
-  document.getElementById('cb-reset').disabled=reset;
+  document.getElementById('cb-prev').disabled = prev;
+  document.getElementById('cb-next').disabled = next;
+  document.getElementById('cb-auto').disabled = auto;
+  document.getElementById('cb-reset').disabled = reset;
 }
-function stepNext(){if(!vizSteps.length||vizIdx>=vizSteps.length-1){stopAuto();return;}vizIdx++;applyStep(vizIdx);}
-function stepPrev(){if(vizIdx<=0)return;stopAuto();vizIdx--;applyStep(vizIdx);}
-function toggleAuto(){if(isAuto)stopAuto();else startAuto();}
+
+function stepNext(){
+  if(!vizSteps.length || vizIdx >= vizSteps.length-1){ stopAuto(); return; }
+  vizIdx++;
+  applyStep(vizIdx);
+}
+function stepPrev(){
+  if(vizIdx <= 0) return;
+  stopAuto(); vizIdx--;
+  applyStep(vizIdx);
+}
+function toggleAuto(){
+  if(isAuto) stopAuto(); else startAuto();
+}
 function startAuto(){
   isAuto=true;
-  const btn=document.getElementById('cb-auto');btn.textContent='⏸ Pause';btn.classList.add('paused');
+  const btn=document.getElementById('cb-auto');
+  btn.textContent='⏸ Pause'; btn.classList.add('paused');
   autoTimer=setInterval(stepNext,autoDelay);
 }
 function stopAuto(){
-  isAuto=false;clearInterval(autoTimer);
+  isAuto=false; clearInterval(autoTimer);
   const btn=document.getElementById('cb-auto');
-  if(btn){btn.textContent='▶ Auto Play';btn.classList.remove('paused');}
+  if(btn){ btn.textContent='▶ Auto Play'; btn.classList.remove('paused'); }
 }
 function resetViz(){
-  stopAuto();vizSteps=[];vizIdx=-1;vizNodes=[];
+  stopAuto();
+  vizSteps=[]; vizIdx=-1; vizNodes=[];
   document.getElementById('node-track').innerHTML='';
   document.getElementById('ptr-label-row').innerHTML='';
   document.getElementById('rev-section').style.display='none';
   document.getElementById('success-banner').classList.remove('show');
   document.getElementById('prog-dots').innerHTML='';
-  updateProgUI(0,1);setExpPanel(-1);updateMemCards(-1,-1,-1,[]);
+  updateProgUI(0,1);
+  setExpPanel(-1);
+  updateMemCards(-1,-1,-1,[]);
   setBtns({prev:true,next:true,auto:true,reset:true});
   document.getElementById('inp-hint').textContent='↑ Change values and click Build to try your own list!';
   showToast('↺ Reset!');
 }
+
+// Auto-build on load with default
 buildVisualization();
 
-// ══════════════════════════════════════════════════════
-//  QUIZ ENGINE — 3 SETS
-// ══════════════════════════════════════════════════════
-const QUIZ_SETS = [
-  // ── SET 1: BEGINNER ──────────────────────────────────
-  {
-    name:'Set 1', diff:'BEGINNER', icon:'🌱',
-    badgeBg:'rgba(0,229,160,0.12)', badgeColor:'#00e5a0',
-    questions:[
-      {
-        q:'In linked list reversal, what is the VERY FIRST step we do inside the loop?',
-        opts:['Flip curr.next = prev','Move prev = curr','Save next = curr.next','Return prev as new head'],
-        ans:2,
-        exp:'We MUST save <code>next = curr.next</code> FIRST. If we flip the pointer before saving, we permanently lose access to the rest of the list — it becomes unreachable!'
-      },
-      {
-        q:'A linked list is: 10 → 20 → 30 → null. After reversing, what does the list look like?',
-        opts:['10 → 20 → 30 → null','null → 30 → 20 → 10','30 → 20 → 10 → null','20 → 30 → 10 → null'],
-        ans:2,
-        exp:'Reversing flips all arrows. 30 becomes the new head pointing to 20, 20 points to 10, and 10 points to null (new tail). Result: 30 → 20 → 10 → null.'
-      },
-      {
-        q:'What does the <code>prev</code> pointer represent during reversal?',
-        opts:['The node ahead of curr','The node currently being processed','The last processed node (tail of reversed chain)','The original head of the list'],
-        ans:2,
-        exp:'<code>prev</code> always points to the last node we processed. It grows the reversed chain from the back. At the end, prev becomes the new head!'
-      },
-      {
-        q:'What value does <code>prev</code> start with before the loop begins?',
-        opts:['The head node','The tail node','0','None (null)'],
-        ans:3,
-        exp:'prev starts as None/null because there is nothing behind the first node yet. The first node will become the new tail, so it should point to null — which is exactly what prev starts as!'
-      },
-      {
-        q:'How many pointer variables does the iterative linked list reversal algorithm use?',
-        opts:['1','2','3','5'],
-        ans:2,
-        exp:'Exactly 3 pointer variables: <code>prev</code>, <code>curr</code>, and <code>next</code>. That\'s the beauty of this algorithm — it\'s incredibly efficient with just 3 variables regardless of list size!'
-      }
-    ]
-  },
-  // ── SET 2: INTERMEDIATE ──────────────────────────────
-  {
-    name:'Set 2', diff:'INTERMEDIATE', icon:'⚡',
-    badgeBg:'rgba(251,191,36,0.12)', badgeColor:'#fbbf24',
-    questions:[
-      {
-        q:'What is the time complexity of iterative linked list reversal for a list of n nodes?',
-        opts:['O(1)','O(log n)','O(n)','O(n²)'],
-        ans:2,
-        exp:'O(n) — we visit each of the n nodes exactly once. There are no nested loops and no backtracking. One clean linear pass through the entire list.'
-      },
-      {
-        q:'What is the space complexity of the iterative reversal approach?',
-        opts:['O(n) — we create a new reversed list','O(log n) — divide and conquer','O(1) — only 3 pointer variables','O(n²) — we compare all pairs'],
-        ans:2,
-        exp:'O(1) — we only ever use 3 variables (prev, curr, next) no matter how large the list is. We modify pointers in-place without allocating any extra data structures!'
-      },
-      {
-        q:'After calling reverse on: A → B → C → D → E → null, what does the node originally containing "C" now point to?',
-        opts:['D','B','null','A'],
-        ans:1,
-        exp:'In the reversed list (E→D→C→B→A→null), node C points to B. The arrow that originally went C→D is now flipped to C→B. Every pointer is reversed!'
-      },
-      {
-        q:'In recursive reversal, what is the space complexity compared to iterative?',
-        opts:['Same — both O(1)','Recursive is O(n) due to call stack','Iterative is O(n) due to the loop','Both are O(log n)'],
-        ans:1,
-        exp:'Recursive reversal uses O(n) space because each recursive call is stored on the call stack. With a list of n nodes, there are n recursive calls stacked up — this can cause a stack overflow on very large lists!'
-      },
-      {
-        q:'What happens to the original head node (first node) after reversal is complete?',
-        opts:['It is deleted from memory','It becomes the new tail and points to null','It remains the head','It points to the second node'],
-        ans:1,
-        exp:'The original head becomes the new TAIL! Since prev started as null and the first node\'s pointer is flipped to prev (null), the original head ends up pointing to null — making it the tail of the reversed list.'
-      }
-    ]
-  },
-  // ── SET 3: ADVANCED ──────────────────────────────────
-  {
-    name:'Set 3', diff:'ADVANCED', icon:'🔥',
-    badgeBg:'rgba(255,77,46,0.12)', badgeColor:'#ff4d2e',
-    questions:[
-      {
-        q:'You need to reverse only nodes from position k to position m (1-indexed) in a linked list. What is the most important extra step compared to full reversal?',
-        opts:['Use a stack instead of three pointers','Reconnect the reversed segment to the non-reversed parts at both ends','Sort the nodes before reversing','Use recursion only — iteration cannot handle partial reversal'],
-        ans:1,
-        exp:'Partial reversal requires reconnecting the reversed sub-list to the surrounding nodes. You must: (1) find node at position k-1 and connect it to the new head of the reversed segment, and (2) connect the old head of the segment (now tail) to node at position m+1. Both boundary connections must be fixed!'
-      },
-      {
-        q:'Consider: 1 → 2 → 3 → 4 → 5 → 6 → null. After reversing in pairs (each pair of adjacent nodes swapped), the result is:',
-        opts:['6 → 5 → 4 → 3 → 2 → 1 → null','2 → 1 → 4 → 3 → 6 → 5 → null','1 → 3 → 2 → 5 → 4 → 6 → null','3 → 2 → 1 → 6 → 5 → 4 → null'],
-        ans:1,
-        exp:'Pairwise reversal swaps each adjacent pair: (1,2) → (2,1), (3,4) → (4,3), (5,6) → (6,5). Result: 2→1→4→3→6→5→null. This is a common interview variant — you must handle the reconnection of each pair carefully!'
-      },
-      {
-        q:'Which of the following correctly identifies a bug in this reversal code?\n<code>while curr:\n  curr.next = prev\n  next = curr.next\n  prev = curr\n  curr = next</code>',
-        opts:['prev should be initialized to curr, not None','The loop condition should be "while prev"','next is saved AFTER flipping curr.next, so we lose the forward link','The return value should be curr, not prev'],
-        ans:2,
-        exp:'Critical bug: <code>next = curr.next</code> comes AFTER <code>curr.next = prev</code>. By the time we try to save next, curr.next has already been overwritten to point to prev. We\'ve lost the forward link! The correct order is: save next FIRST, then flip.'
-      },
-      {
-        q:'For a doubly linked list (each node has both next and prev pointers), reversing requires:',
-        opts:['Only swapping the next pointers, just like singly linked list','Swapping both next and prev pointers for every node','Deleting all nodes and reinserting in reverse order','Using two passes — one for next pointers, one for prev pointers'],
-        ans:1,
-        exp:'In a doubly linked list, every node has BOTH next and prev pointers. During reversal, you must swap both: the next pointer of each node points to the old prev, and the prev pointer points to the old next. Also, the head and tail pointers of the list itself must be swapped!'
-      },
-      {
-        q:'What does this recursive reversal return when called on a list of 1 node?\n<code>def reverse(head):\n  if not head or not head.next: return head\n  new_head = reverse(head.next)\n  head.next.next = head\n  head.next = None\n  return new_head</code>',
-        opts:['None','The single node itself (unchanged)','A new copy of the node','It throws an error — base case is missing'],
-        ans:1,
-        exp:'When head.next is None (single node), the base case <code>if not head or not head.next</code> is triggered and we return head immediately — the single node unchanged. This is correct! A single-node list reversed is itself. The recursive case never runs.'
-      }
-    ]
-  }
+// ══════════════════════════════════════════
+// QUIZ ENGINE
+// ══════════════════════════════════════════
+const QUESTIONS = [
+  {q:'What is the FIRST thing we do inside the loop — before flipping the pointer?',
+    opts:['Flip curr.next = prev','Move prev = curr','Save next = curr.next','Return prev'],
+    ans:2, exp:'We MUST save <code>next = curr.next</code> before flipping anything. If we flip first, we lose access to the rest of the list — it becomes unreachable forever.'},
+  {q:'After the loop ends (curr is None), what does <code>prev</code> point to?',
+    opts:['The original head node','null','The new head (old last node)','The middle node'],
+    ans:2, exp:'When curr becomes None, prev holds the last node we processed — which was the last node in the original list. That node is now the new head of the reversed list!'},
+  {q:'What is the space complexity of this in-place reversal?',
+    opts:['O(n) — new list created','O(log n) — recursive','O(1) — only 3 variables','O(n²) — nested loops'],
+    ans:2, exp:'We only ever use 3 variables (prev, curr, next) regardless of list size. No extra arrays, no recursion stack — pure O(1) space!'},
+  {q:'What happens if you forget to save <code>next</code> before flipping <code>curr.next = prev</code>?',
+    opts:['The list reverses faster','The list stays the same','You lose access to the rest of the list','prev gets updated automatically'],
+    ans:2, exp:'Without saving next first, flipping curr.next = prev permanently overwrites the forward pointer. Everything after curr becomes unreachable — garbage collected or lost!'},
+  {q:'If the input list is: 10 → 20 → 30 → null, what is the reversed list?',
+    opts:['10 → 20 → 30 → null','null → 10 → 20 → 30','30 → 20 → 10 → null','20 → 10 → 30 → null'],
+    ans:2, exp:'Reversing flips all arrows. 10 becomes the tail (points to null), 20 points to 10, and 30 becomes the new head pointing to 20. So: 30 → 20 → 10 → null.'},
 ];
 
-// ── Quiz state ──
-let activeSet = 0;
-const setStatus = [
-  {unlocked:true, completed:false, score:null},
-  {unlocked:false, completed:false, score:null},
-  {unlocked:false, completed:false, score:null}
-];
-let qCurrent = 0, qScore = 0, qAnswered = false, qResults = [];
-
-// ── Switch Set ──
-function switchSet(idx){
-  if(!setStatus[idx].unlocked){
-    showToast(`🔒 Complete Set ${idx} first to unlock this!`,'#fbbf24');
-    return;
-  }
-  activeSet = idx;
-  // Update tabs
-  document.querySelectorAll('.set-tab').forEach((t,i)=>{
-    t.classList.toggle('active-set', i===idx);
-  });
-  // Hide unlock banner
-  document.getElementById('unlock-banner').classList.remove('show');
-  // Start quiz for this set
-  startSetQuiz(idx);
-}
-
-function startSetQuiz(idx){
-  qCurrent=0; qScore=0; qAnswered=false; qResults=[];
-  document.getElementById('set-complete').classList.remove('show');
-  document.getElementById('quiz-card').style.display='block';
-  // Update hud badge
-  const set=QUIZ_SETS[idx];
-  const badge=document.getElementById('qhud-set-badge');
-  badge.textContent=`SET ${idx+1} — ${set.diff}`;
-  badge.style.background=set.badgeBg;badge.style.color=set.badgeColor;
-  // Reset stars
-  for(let i=0;i<5;i++){const s=document.getElementById('scstar'+i);if(s)s.classList.remove('lit');}
-  renderQuestion();
-}
+let qCurrent=0, qScore=0, qAnswered=false;
 
 function buildQuizHud(){
-  const hud=document.getElementById('qhud-dots');hud.innerHTML='';
+  const hud=document.getElementById('qhud-dots'); hud.innerHTML='';
   for(let i=0;i<5;i++){
-    const d=document.createElement('div');d.className='qhud-dot';d.id='qd-'+i;
-    if(i===qCurrent)d.classList.add('q-curr');
-    else if(i<qCurrent){
-      if(qResults[i]===true)d.classList.add('q-done');
-      else if(qResults[i]===false)d.classList.add('q-wrong');
-    }
+    const d=document.createElement('div'); d.className='qhud-dot'; d.id='qd-'+i;
+    if(i===qCurrent) d.classList.add('q-curr');
     hud.appendChild(d);
   }
 }
-
 function renderQuestion(){
   qAnswered=false;
   buildQuizHud();
-  const set=QUIZ_SETS[activeSet];
-  const q=set.questions[qCurrent];
-  document.getElementById('q-num').textContent=`QUESTION ${qCurrent+1} / 5 — ${set.name}`;
+  const q=QUESTIONS[qCurrent];
+  document.getElementById('q-num').textContent=`QUESTION ${qCurrent+1} / ${QUESTIONS.length}`;
   document.getElementById('q-text').innerHTML=q.q;
   document.getElementById('qscore-display').textContent=qScore;
-  const opts=document.getElementById('q-opts');opts.innerHTML='';
+  const opts=document.getElementById('q-opts'); opts.innerHTML='';
   q.opts.forEach((o,i)=>{
-    const btn=document.createElement('button');btn.className='qopt';btn.innerHTML=o;
+    const btn=document.createElement('button'); btn.className='qopt'; btn.innerHTML=o;
     btn.onclick=()=>answerQuiz(i);
     opts.appendChild(btn);
   });
@@ -1130,130 +1329,78 @@ function renderQuestion(){
 }
 
 function answerQuiz(i){
-  if(qAnswered)return;
+  if(qAnswered) return;
   qAnswered=true;
-  const q=QUIZ_SETS[activeSet].questions[qCurrent];
+  const q=QUESTIONS[qCurrent];
   const correct=i===q.ans;
-  qResults.push(correct);
-  if(correct){qScore++;sndCorrect();spawnParticles(window.innerWidth*0.6,window.innerHeight*0.4);}
+  if(correct){ qScore++; sndCorrect(); spawnParticles(window.innerWidth*0.6, window.innerHeight*0.4); }
   else sndWrong();
   document.querySelectorAll('.qopt').forEach((o,j)=>{
     o.disabled=true;
-    if(j===q.ans)o.classList.add('correct');
-    else if(j===i)o.classList.add('wrong');
+    if(j===q.ans) o.classList.add('correct');
+    else if(j===i) o.classList.add('wrong');
   });
   const d=document.getElementById('qd-'+qCurrent);
-  if(d){d.classList.remove('q-curr');d.classList.add(correct?'q-done':'q-wrong');}
+  if(d){ d.classList.remove('q-curr'); d.classList.add(correct?'q-done':'q-wrong'); }
   const fb=document.getElementById('q-feedback');
   fb.className='q-feedback show '+(correct?'ok':'bad');
   fb.innerHTML=(correct?'✅ Correct! ':'❌ Not quite. ')+q.exp;
   document.getElementById('qscore-display').textContent=qScore;
-  const nb=document.getElementById('q-next-btn');nb.className='q-next show';
-  nb.textContent=qCurrent===4?`See My Score 🏆`:'Next Question →';
+  const nb=document.getElementById('q-next-btn');
+  nb.className='q-next show';
+  nb.textContent=qCurrent===QUESTIONS.length-1?'See My Score 🏆':'Next Question →';
 }
 
 function quizNext(){
   qCurrent++;
-  if(qCurrent>=5) showSetComplete();
-  else renderQuestion();
+  if(qCurrent>=QUESTIONS.length){
+    showScoreScreen();
+  } else {
+    renderQuestion();
+  }
 }
 
-function showSetComplete(){
+function showScoreScreen(){
   document.getElementById('quiz-card').style.display='none';
-  const sc=document.getElementById('set-complete');sc.className='set-complete show';
-  // Save status
-  setStatus[activeSet].completed=true;
-  setStatus[activeSet].score=qScore;
-  // Update tab score
-  document.getElementById('tab-score'+activeSet).textContent=`Best: ${qScore}/5`;
-  // Determine if next set should unlock
-  const nextSet=activeSet+1;
-  const shouldUnlock=nextSet<=2&&!setStatus[nextSet].unlocked;
-  if(shouldUnlock){
-    setStatus[nextSet].unlocked=true;
-    const nextTab=document.getElementById('tab-set'+nextSet);
-    nextTab.classList.remove('locked');nextTab.classList.add('unlocked');
-    const lockEl=document.getElementById('tab-lock'+nextSet);if(lockEl)lockEl.remove();
-    document.getElementById('tab-score'+nextSet).textContent='Newly unlocked!';
-  }
-  // Trophy and message
-  const trophies=['😞','😐','🙂','😎','🏆'];
-  const msgs=[
-    'Keep practicing! Read the Algorithm page and try the Visualizer again.',
-    'Getting there! Review the step-by-step explanation.',
-    'Decent effort! A bit more practice and you\'ll ace it.',
-    'Great work! Almost perfect!',
-    '🎉 Perfect score! You\'ve truly mastered this!'
-  ];
-  document.getElementById('sc-trophy').textContent=trophies[qScore]||'🏆';
-  const setInfo=QUIZ_SETS[activeSet];
-  document.getElementById('sc-title').textContent=`${setInfo.name} Complete!`;
-  document.getElementById('sc-score').textContent=`${qScore}/5`;
-  document.getElementById('sc-sub').textContent=msgs[qScore];
-  // Stars
-  for(let i=0;i<5;i++){
-    const s=document.getElementById('scstar'+i);if(s)s.classList.remove('lit');
-  }
-  for(let i=0;i<qScore;i++){
-    setTimeout(()=>{
-      const s=document.getElementById('scstar'+i);
-      if(s){s.classList.add('lit');sndStar();}
-    },i*200+400);
-  }
-  // Next set button
-  const nextBtn=document.getElementById('sc-next-btn');
-  const gotoBtn=document.getElementById('sc-goto-next-btn');
-  if(nextBtn)nextBtn.style.display='none';
-  if(gotoBtn)gotoBtn.style.display='none';
-  if(shouldUnlock){
-    if(nextBtn){nextBtn.style.display='inline-block';nextBtn.textContent=`Unlock Set ${nextSet+1} 🔓`;}
-    // Show unlock banner at top
-    setTimeout(()=>{
-      const ub=document.getElementById('unlock-banner');
-      document.getElementById('unlock-title').textContent=`Set ${nextSet+1} — ${QUIZ_SETS[nextSet].diff} Unlocked! 🔓`;
-      document.getElementById('unlock-sub').textContent=`You earned it! Click Set ${nextSet+1} tab to attempt the harder questions.`;
-      ub.classList.add('show');sndUnlock();
-    },1200);
-  } else if(nextSet<=2&&setStatus[nextSet].unlocked){
-    if(gotoBtn){gotoBtn.style.display='inline-block';}
-  }
-  // Confetti for good scores
-  if(qScore>=3)setTimeout(()=>launchConfetti(),300);
-  if(qScore===5)setTimeout(()=>{launchConfetti();spawnParticles(window.innerWidth/2,window.innerHeight/3);},1500);
-  // Analysis bars
-  const cats=[
-    {label:'Accuracy',pct:Math.round(qScore/5*100),color:'#00e5a0'},
-    {label:'Consistency',pct:qResults.filter((r,i)=>r&&i>0).length/4*100|0,color:'#a78bfa'},
+  const ss=document.getElementById('score-screen'); ss.className='score-screen show';
+  document.getElementById('score-num').textContent=`${qScore}/5`;
+  const trophies=['😔','😐','🙂','😎','🏆'];
+  document.getElementById('score-trophy').textContent=trophies[qScore]||'🏆';
+  // Animate analysis bars on score screen
+  const abCats=[
+    {label:'Pointer logic',pct:qScore>=3?Math.min(100,qScore*18+10):qScore*15,color:'#a78bfa'},
+    {label:'Complexity',pct:qScore>=4?95:qScore>=2?60:25,color:'#22d3ee'},
+    {label:'Step order',pct:qScore>=2?Math.min(100,qScore*17+5):qScore*12,color:'#00e5a0'},
     {label:'Overall',pct:Math.round(qScore/5*100),color:'#fbbf24'},
   ];
-  const ab=document.getElementById('sc-abar');
+  const ab=document.getElementById('analysis-bar');
   if(ab){
-    ab.innerHTML=cats.map(c=>`<div class="abar-row"><div class="abar-label">${c.label}</div><div class="abar-track"><div class="abar-fill" style="background:${c.color}" data-pct="${c.pct}"></div></div><div class="abar-pct">${c.pct}%</div></div>`).join('');
-    setTimeout(()=>ab.querySelectorAll('.abar-fill').forEach(b=>b.style.width=b.dataset.pct+'%'),300);
+    ab.innerHTML=abCats.map(c=>`<div class="abar-row"><div class="abar-label">${c.label}</div><div class="abar-track"><div class="abar-fill" style="background:${c.color}" data-pct="${c.pct}"></div></div><div class="abar-pct">${c.pct}%</div></div>`).join('');
+    setTimeout(()=>ab.querySelectorAll('.abar-fill').forEach(b=>b.style.width=b.dataset.pct+'%'),200);
   }
+  // Stars
+  for(let i=0;i<qScore;i++){
+    setTimeout(()=>{
+      const s=document.getElementById('star'+i);
+      if(s){ s.classList.add('lit'); sndStar(); }
+    }, i*200+400);
+  }
+  // Party popper + confetti + gift — with delays for drama
+  setTimeout(()=>{ launchConfetti(); }, 300);
+  setTimeout(()=>{ showGiftOverlay(qScore); }, 900);
+  if(qScore===5) setTimeout(()=>{ launchConfetti(); spawnParticles(window.innerWidth/2,window.innerHeight/3); }, 1600);
 }
 
-function scNextAction(){
-  // Scroll to top, switch to next set tab
-  const nextSet=activeSet+1;
-  if(nextSet<=2&&setStatus[nextSet].unlocked){
-    switchSet(nextSet);
-    document.getElementById('pane-4').scrollTop=0;
-    showToast(`🔥 Starting ${QUIZ_SETS[nextSet].name}!`,'#fbbf24');
+function restartQuiz(){
+  qCurrent=0; qScore=0; qAnswered=false;
+  document.getElementById('quiz-card').style.display='block';
+  document.getElementById('score-screen').className='score-screen';
+  for(let i=0;i<5;i++){
+    const s=document.getElementById('star'+i);
+    if(s) s.classList.remove('lit');
   }
+  renderQuestion();
 }
-function scGotoNextSet(){
-  const nextSet=activeSet+1;
-  if(nextSet<=2&&setStatus[nextSet].unlocked){
-    switchSet(nextSet);
-    document.getElementById('pane-4').scrollTop=0;
-  }
-}
-function scRetryAction(){
-  startSetQuiz(activeSet);
-}
-
-// Init quiz on page load
 renderQuestion();
 </script>
 </body>
